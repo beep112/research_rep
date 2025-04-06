@@ -40,4 +40,18 @@ def main():
     print(data[:1000])
 
 
+"""
+Function that will create a 90% split between the data for testing and validation
+
+@param the data that needs to be split
+"""
+
+
+def train_val_split(data):
+    n = int(0.9 * len(data))
+    train_data = data[:n]
+    val_data = data[n:]
+    return train_data, val_data
+
+
 main()

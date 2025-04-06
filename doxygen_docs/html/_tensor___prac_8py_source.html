@@ -148,9 +148,26 @@ $(function(){initNavTree('_tensor___prac_8py_source.html',''); initResizable(tru
 <div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>    print(data[:1000])</div>
 <div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span> </div>
 <div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span> </div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span><span class="stringliteral">&quot;&quot;&quot;</span></div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span><span class="stringliteral">Function that will create a 90% split between the data for testing and validation</span></div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span><span class="stringliteral"></span> </div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span><span class="stringliteral">@param the data that needs to be split</span></div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span><span class="stringliteral">&quot;&quot;&quot;</span></div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span> </div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span> </div>
 </div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span><a class="code hl_function" href="namespace_tensor___prac.html#a29b24be91b9caae9f81a327c14a432b0">main</a>()</div>
+<div class="foldopen" id="foldopen00050" data-start="" data-end="">
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno"><a class="line" href="namespace_tensor___prac.html#ac81472eeab03df34a6e683bba8e4b388">   50</a></span><span class="keyword">def </span><a class="code hl_function" href="namespace_tensor___prac.html#ac81472eeab03df34a6e683bba8e4b388">train_val_split</a>(data):</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>    n = int(0.9 * len(data))</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>    train_data = data[:n]</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>    val_data = data[n:]</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>    <span class="keywordflow">return</span> train_data, val_data</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span> </div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span> </div>
+</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span><a class="code hl_function" href="namespace_tensor___prac.html#a29b24be91b9caae9f81a327c14a432b0">main</a>()</div>
 <div class="ttc" id="anamespace_tensor___prac_html_a29b24be91b9caae9f81a327c14a432b0"><div class="ttname"><a href="namespace_tensor___prac.html#a29b24be91b9caae9f81a327c14a432b0">Tensor_Prac.main</a></div><div class="ttdeci">main()</div><div class="ttdef"><b>Definition</b> <a href="#l00011">Tensor_Prac.py:11</a></div></div>
+<div class="ttc" id="anamespace_tensor___prac_html_ac81472eeab03df34a6e683bba8e4b388"><div class="ttname"><a href="namespace_tensor___prac.html#ac81472eeab03df34a6e683bba8e4b388">Tensor_Prac.train_val_split</a></div><div class="ttdeci">train_val_split(data)</div><div class="ttdef"><b>Definition</b> <a href="#l00050">Tensor_Prac.py:50</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
