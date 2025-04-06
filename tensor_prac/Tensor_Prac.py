@@ -33,5 +33,11 @@ def main():
     print(encode("test message"))
     print(decode(encode("test message")))
 
+    """ create a tensor representation of the encoding for all the text"""
+    data = torch.tensor(encode(text), dtype=torch.long)
+    print(data.shape, data.dtype)
+    """ print the first 1000 elements of tensor """
+    print(data[:1000])
+
 
 main()
