@@ -3,12 +3,14 @@ This file has no actual content related to tranformers or the mock GPT. This
 just is some practice for myself with python, and the tensors in pytorch.
 """
 
+import os.path
+
 import torch
 
 
 def main():
     """This will open the file and is a doxygen test"""
-    with open("input.txt", "r", encoding="utf-8") as f:
+    with open(os.path.dirname(__file__) + "/../input.txt", "r", encoding="utf-8") as f:
         text = f.read()
 
     print("length of dataset in characters: ", len(text))
@@ -27,3 +29,9 @@ def main():
     encode = lambda s: [stoi[c] for c in s]
     """ decoder: take a list of strings, output the string """
     decode = lambda l: "".join([itos[i] for i in l])
+
+    print(encode("test message"))
+    print(decode(encode("test message")))
+
+
+main()
