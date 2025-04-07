@@ -127,102 +127,96 @@ $(function(){initNavTree('_tensor___prac_8py_source.html',''); initResizable(tru
 <div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="stringliteral">    and demonstrates block size operations.</span></div>
 <div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span><span class="stringliteral"></span> </div>
 <div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span><span class="stringliteral">    @return: None</span></div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span><span class="stringliteral">    @rtype: None</span></div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span><span class="stringliteral">    &quot;&quot;&quot;</span></div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>    <span class="keyword">with</span> open(os.path.dirname(__file__) + <span class="stringliteral">&quot;/../input.txt&quot;</span>, <span class="stringliteral">&quot;r&quot;</span>, encoding=<span class="stringliteral">&quot;utf-8&quot;</span>) <span class="keyword">as</span> f:</div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>        text = f.read()</div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span> </div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>    print(<span class="stringliteral">&quot;length of dataset in characters: &quot;</span>, len(text))</div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span> </div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>    print(text[:1000])</div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span> </div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>    chars = sorted(list(set(text)))</div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>    vocab_size = len(chars)</div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>    print(<span class="stringliteral">&quot;&quot;</span>.join(chars))</div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>    print(vocab_size)</div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span> </div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>    <span class="comment"># create a mapping from characters to integers</span></div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>    stoi = {ch: i <span class="keywordflow">for</span> i, ch <span class="keywordflow">in</span> enumerate(chars)}</div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>    itos = {i: ch <span class="keywordflow">for</span> i, ch <span class="keywordflow">in</span> enumerate(chars)}</div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>    <span class="comment"># encoder: takes a string, outputs a list of integers</span></div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>    encode = <span class="keyword">lambda</span> s: [stoi[c] <span class="keywordflow">for</span> c <span class="keywordflow">in</span> s]</div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>    <span class="comment"># decoder: take a list of strings, output the string</span></div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>    decode = <span class="keyword">lambda</span> l: <span class="stringliteral">&quot;&quot;</span>.join([itos[i] <span class="keywordflow">for</span> i <span class="keywordflow">in</span> l])</div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span> </div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>    print(encode(<span class="stringliteral">&quot;test message&quot;</span>))</div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>    print(decode(encode(<span class="stringliteral">&quot;test message&quot;</span>)))</div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span> </div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>    <span class="comment"># create a tensor representation of the encoding for all the text</span></div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>    data = torch.tensor(encode(text), dtype=torch.long)</div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>    print(data.shape, data.dtype)</div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>    <span class="comment"># print the first 1000 elements of tensor</span></div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>    print(data[:1000])</div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span> </div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>    <span class="comment"># get the train/val split data</span></div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>    train_data, val_data = <a class="code hl_function" href="namespace_tensor___prac.html#ac81472eeab03df34a6e683bba8e4b388">train_val_split</a>(data)</div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>    <a class="code hl_function" href="namespace_tensor___prac.html#a6a2122dcb28c901f9e2f081014a83698">print_block_size</a>(8, train_data)</div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span><span class="stringliteral">    &quot;&quot;&quot;</span></div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>    <span class="keyword">with</span> open(os.path.dirname(__file__) + <span class="stringliteral">&quot;/../input.txt&quot;</span>, <span class="stringliteral">&quot;r&quot;</span>, encoding=<span class="stringliteral">&quot;utf-8&quot;</span>) <span class="keyword">as</span> f:</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>        text = f.read()</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span> </div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>    print(<span class="stringliteral">&quot;length of dataset in characters: &quot;</span>, len(text))</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span> </div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>    print(text[:1000])</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span> </div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>    chars = sorted(list(set(text)))</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>    vocab_size = len(chars)</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>    print(<span class="stringliteral">&quot;&quot;</span>.join(chars))</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>    print(vocab_size)</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span> </div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>    <span class="comment"># create a mapping from characters to integers</span></div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>    stoi = {ch: i <span class="keywordflow">for</span> i, ch <span class="keywordflow">in</span> enumerate(chars)}</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>    itos = {i: ch <span class="keywordflow">for</span> i, ch <span class="keywordflow">in</span> enumerate(chars)}</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>    <span class="comment"># encoder: takes a string, outputs a list of integers</span></div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>    encode = <span class="keyword">lambda</span> s: [stoi[c] <span class="keywordflow">for</span> c <span class="keywordflow">in</span> s]</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>    <span class="comment"># decoder: take a list of strings, output the string</span></div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>    decode = <span class="keyword">lambda</span> l: <span class="stringliteral">&quot;&quot;</span>.join([itos[i] <span class="keywordflow">for</span> i <span class="keywordflow">in</span> l])</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span> </div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>    print(encode(<span class="stringliteral">&quot;test message&quot;</span>))</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>    print(decode(encode(<span class="stringliteral">&quot;test message&quot;</span>)))</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span> </div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>    <span class="comment"># create a tensor representation of the encoding for all the text</span></div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>    data = torch.tensor(encode(text), dtype=torch.long)</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>    print(data.shape, data.dtype)</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>    <span class="comment"># print the first 1000 elements of tensor</span></div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>    print(data[:1000])</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span> </div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>    <span class="comment"># get the train/val split data</span></div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>    train_data, val_data = <a class="code hl_function" href="namespace_tensor___prac.html#ac81472eeab03df34a6e683bba8e4b388">train_val_split</a>(data)</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>    <a class="code hl_function" href="namespace_tensor___prac.html#a6a2122dcb28c901f9e2f081014a83698">print_block_size</a>(8, train_data)</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span> </div>
 <div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span> </div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span> </div>
 </div>
-<div class="foldopen" id="foldopen00058" data-start="" data-end="">
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno"><a class="line" href="namespace_tensor___prac.html#a6a2122dcb28c901f9e2f081014a83698">   58</a></span><span class="keyword">def </span><a class="code hl_function" href="namespace_tensor___prac.html#a6a2122dcb28c901f9e2f081014a83698">print_block_size</a>(block_size, train_data):</div>
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>    <span class="stringliteral">&quot;&quot;&quot;</span></div>
-<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span><span class="stringliteral">    @brief Prints examples of context-target pairs for given block size.</span></div>
-<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span><span class="stringliteral"></span> </div>
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span><span class="stringliteral">    Demonstrates how the context window works by showing input-output pairs</span></div>
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span><span class="stringliteral">    for different context lengths.</span></div>
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span><span class="stringliteral"></span> </div>
-<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span><span class="stringliteral">    This function will be used to print the block size for the data.</span></div>
-<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span><span class="stringliteral">    Another way to describe block size is the amount of context that</span></div>
-<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span><span class="stringliteral">    we will look at for each pass for our model. So in this case the</span></div>
-<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span><span class="stringliteral">    block_size could be variable but for this we will fix it to 8 for</span></div>
-<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span><span class="stringliteral">    this practice model</span></div>
-<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span><span class="stringliteral"></span> </div>
-<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span><span class="stringliteral">    @param block_size: the size of context we want to take in</span></div>
-<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span><span class="stringliteral">    @type block_size: Int</span></div>
-<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span><span class="stringliteral">    @param train_data: the training data we are using</span></div>
-<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span><span class="stringliteral">    @type train_data: torch.Tensor</span></div>
-<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span><span class="stringliteral">    @return: None</span></div>
-<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span><span class="stringliteral">    @rtype: None</span></div>
-<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span><span class="stringliteral">    &quot;&quot;&quot;</span></div>
-<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>    print(train_data[: block_size + 1])</div>
-<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span> </div>
-<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>    <span class="comment"># x will be used at training data and compared against y which is the</span></div>
-<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>    <span class="comment"># actual next token</span></div>
-<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>    x = train_data[:block_size]</div>
-<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>    y = train_data[1 : block_size + 1]</div>
-<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>    <span class="keywordflow">for</span> t <span class="keywordflow">in</span> range(block_size):</div>
-<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>        context = x[: t + 1]</div>
-<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>        target = y[t]</div>
-<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>        print(f<span class="stringliteral">&quot;when input is {context} the target: {target}&quot;</span>)</div>
-<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span> </div>
-<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span> </div>
+<div class="foldopen" id="foldopen00057" data-start="" data-end="">
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno"><a class="line" href="namespace_tensor___prac.html#a6a2122dcb28c901f9e2f081014a83698">   57</a></span><span class="keyword">def </span><a class="code hl_function" href="namespace_tensor___prac.html#a6a2122dcb28c901f9e2f081014a83698">print_block_size</a>(block_size, train_data):</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>    <span class="stringliteral">&quot;&quot;&quot;</span></div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span><span class="stringliteral">    @brief Prints examples of context-target pairs for given block size.</span></div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span><span class="stringliteral"></span> </div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span><span class="stringliteral">    Demonstrates how the context window works by showing input-output pairs</span></div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span><span class="stringliteral">    for different context lengths.</span></div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span><span class="stringliteral"></span> </div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span><span class="stringliteral">    This function will be used to print the block size for the data.</span></div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span><span class="stringliteral">    Another way to describe block size is the amount of context that</span></div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span><span class="stringliteral">    we will look at for each pass for our model. So in this case the</span></div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span><span class="stringliteral">    block_size could be variable but for this we will fix it to 8 for</span></div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span><span class="stringliteral">    this practice model</span></div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span><span class="stringliteral"></span> </div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span><span class="stringliteral">    @param block_size: the size of context we want to take in</span></div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span><span class="stringliteral">    @param train_data: the training data we are using</span></div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span><span class="stringliteral">    @return: None</span></div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span><span class="stringliteral">    &quot;&quot;&quot;</span></div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>    print(train_data[: block_size + 1])</div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span> </div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>    <span class="comment"># x will be used at training data and compared against y which is the</span></div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>    <span class="comment"># actual next token</span></div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>    x = train_data[:block_size]</div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>    y = train_data[1 : block_size + 1]</div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>    <span class="keywordflow">for</span> t <span class="keywordflow">in</span> range(block_size):</div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>        context = x[: t + 1]</div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>        target = y[t]</div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>        print(f<span class="stringliteral">&quot;when input is {context} the target: {target}&quot;</span>)</div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span> </div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span> </div>
 </div>
-<div class="foldopen" id="foldopen00090" data-start="" data-end="">
-<div class="line"><a id="l00090" name="l00090"></a><span class="lineno"><a class="line" href="namespace_tensor___prac.html#ac81472eeab03df34a6e683bba8e4b388">   90</a></span><span class="keyword">def </span><a class="code hl_function" href="namespace_tensor___prac.html#ac81472eeab03df34a6e683bba8e4b388">train_val_split</a>(data):</div>
-<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>    <span class="stringliteral">&quot;&quot;&quot;</span></div>
-<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span><span class="stringliteral">    @brief Splits data into training and validation sets.</span></div>
-<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span><span class="stringliteral"></span> </div>
-<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span><span class="stringliteral">    Creates a 90%/10% split between training and validation data.</span></div>
-<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span><span class="stringliteral"></span> </div>
-<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span><span class="stringliteral">    @param data: Full dataset tensor</span></div>
-<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span><span class="stringliteral">    @type data: Torch.Tensor</span></div>
-<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span><span class="stringliteral">    @return: Tuple of (train_data, val_data)</span></div>
-<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span><span class="stringliteral">    @rtype: Tuple(torch.Tensor, torch.Tensor)</span></div>
-<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span><span class="stringliteral">    &quot;&quot;&quot;</span></div>
+<div class="foldopen" id="foldopen00086" data-start="" data-end="">
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno"><a class="line" href="namespace_tensor___prac.html#ac81472eeab03df34a6e683bba8e4b388">   86</a></span><span class="keyword">def </span><a class="code hl_function" href="namespace_tensor___prac.html#ac81472eeab03df34a6e683bba8e4b388">train_val_split</a>(data):</div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>    <span class="stringliteral">&quot;&quot;&quot;</span></div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span><span class="stringliteral">    @brief Splits data into training and validation sets.</span></div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span><span class="stringliteral"></span> </div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span><span class="stringliteral">    Creates a 90%/10% split between training and validation data.</span></div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span><span class="stringliteral"></span> </div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span><span class="stringliteral">    @param data: Full dataset tensor</span></div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span><span class="stringliteral">    @return: Tuple of (train_data, val_data)</span></div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span><span class="stringliteral">    &quot;&quot;&quot;</span></div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span> </div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>    n = int(0.9 * len(data))</div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>    train_data = data[:n]</div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>    val_data = data[n:]</div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>    <span class="keywordflow">return</span> train_data, val_data</div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span> </div>
 <div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span> </div>
-<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>    n = int(0.9 * len(data))</div>
-<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>    train_data = data[:n]</div>
-<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>    val_data = data[n:]</div>
-<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>    <span class="keywordflow">return</span> train_data, val_data</div>
-<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span> </div>
-<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span> </div>
 </div>
-<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span><span class="keywordflow">if</span> __name__ == <span class="stringliteral">&quot;__main__&quot;</span>:</div>
-<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>    <a class="code hl_function" href="namespace_tensor___prac.html#a29b24be91b9caae9f81a327c14a432b0">main</a>()</div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span><span class="keywordflow">if</span> __name__ == <span class="stringliteral">&quot;__main__&quot;</span>:</div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>    <a class="code hl_function" href="namespace_tensor___prac.html#a29b24be91b9caae9f81a327c14a432b0">main</a>()</div>
 <div class="ttc" id="anamespace_tensor___prac_html_a29b24be91b9caae9f81a327c14a432b0"><div class="ttname"><a href="namespace_tensor___prac.html#a29b24be91b9caae9f81a327c14a432b0">Tensor_Prac.main</a></div><div class="ttdeci">main()</div><div class="ttdoc">Main function that loads data and demonstrates basic tensor operations.</div><div class="ttdef"><b>Definition</b> <a href="#l00014">Tensor_Prac.py:14</a></div></div>
-<div class="ttc" id="anamespace_tensor___prac_html_a6a2122dcb28c901f9e2f081014a83698"><div class="ttname"><a href="namespace_tensor___prac.html#a6a2122dcb28c901f9e2f081014a83698">Tensor_Prac.print_block_size</a></div><div class="ttdeci">print_block_size(block_size, train_data)</div><div class="ttdoc">Prints examples of context-target pairs for given block size.</div><div class="ttdef"><b>Definition</b> <a href="#l00058">Tensor_Prac.py:58</a></div></div>
-<div class="ttc" id="anamespace_tensor___prac_html_ac81472eeab03df34a6e683bba8e4b388"><div class="ttname"><a href="namespace_tensor___prac.html#ac81472eeab03df34a6e683bba8e4b388">Tensor_Prac.train_val_split</a></div><div class="ttdeci">train_val_split(data)</div><div class="ttdoc">Splits data into training and validation sets.</div><div class="ttdef"><b>Definition</b> <a href="#l00090">Tensor_Prac.py:90</a></div></div>
+<div class="ttc" id="anamespace_tensor___prac_html_a6a2122dcb28c901f9e2f081014a83698"><div class="ttname"><a href="namespace_tensor___prac.html#a6a2122dcb28c901f9e2f081014a83698">Tensor_Prac.print_block_size</a></div><div class="ttdeci">print_block_size(block_size, train_data)</div><div class="ttdoc">Prints examples of context-target pairs for given block size.</div><div class="ttdef"><b>Definition</b> <a href="#l00057">Tensor_Prac.py:57</a></div></div>
+<div class="ttc" id="anamespace_tensor___prac_html_ac81472eeab03df34a6e683bba8e4b388"><div class="ttname"><a href="namespace_tensor___prac.html#ac81472eeab03df34a6e683bba8e4b388">Tensor_Prac.train_val_split</a></div><div class="ttdeci">train_val_split(data)</div><div class="ttdoc">Splits data into training and validation sets.</div><div class="ttdef"><b>Definition</b> <a href="#l00086">Tensor_Prac.py:86</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

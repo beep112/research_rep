@@ -19,7 +19,6 @@ def main():
     and demonstrates block size operations.
 
     @return: None
-    @rtype: None
     """
     with open(os.path.dirname(__file__) + "/../input.txt", "r", encoding="utf-8") as f:
         text = f.read()
@@ -69,11 +68,8 @@ def print_block_size(block_size, train_data):
     this practice model
 
     @param block_size: the size of context we want to take in
-    @type block_size: Int
     @param train_data: the training data we are using
-    @type train_data: torch.Tensor
     @return: None
-    @rtype: None
     """
     print(train_data[: block_size + 1])
 
@@ -94,9 +90,7 @@ def train_val_split(data):
     Creates a 90%/10% split between training and validation data.
 
     @param data: Full dataset tensor
-    @type data: Torch.Tensor
     @return: Tuple of (train_data, val_data)
-    @rtype: Tuple(torch.Tensor, torch.Tensor)
     """
 
     n = int(0.9 * len(data))
