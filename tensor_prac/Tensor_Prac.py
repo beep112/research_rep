@@ -18,7 +18,7 @@ def main():
     Opens a text file, processes the data, creates training/validation splits,
     and demonstrates block size operations.
 
-    @return: None
+    @return None
     """
     with open(os.path.dirname(__file__) + "/../input.txt", "r", encoding="utf-8") as f:
         text = f.read()
@@ -69,7 +69,7 @@ def print_block_size(block_size, train_data):
 
     @param block_size: the size of context we want to take in
     @param train_data: the training data we are using
-    @return: None
+    @return None
     """
     print(train_data[: block_size + 1])
 
@@ -90,7 +90,7 @@ def train_val_split(data):
     Creates a 90%/10% split between training and validation data.
 
     @param data: Full dataset tensor
-    @return: Tuple of (train_data, val_data)
+    @return Tuple of (train_data, val_data)
     """
 
     n = int(0.9 * len(data))
