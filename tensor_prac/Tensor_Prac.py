@@ -39,12 +39,31 @@ def main():
     """ print the first 1000 elements of tensor """
     print(data[:1000])
 
+    """ get the train/val split data """
+    train_data, val_data = train_val_split(data)
+
+
+def print_block_size(block_size, train_data):
+    """
+    This function will be used to print the block size for the data.
+    Another way to describe block size is the amount of context that
+    we will look at for each pass for our model. So in this case the
+    block_size could be variable but for this we will fix it to 8 for
+    this practice model
+
+    @param block_size: the size of context we want to take in
+    @param train_data: the training data we are using
+    @return: void there is nothing returned
+    """
+    print(train_data[: block_size + 1])
+
 
 def train_val_split(data):
     """
     Function that will create a 90% split between the data for testing and validation
 
-    @param the data that needs to be split
+    @param data: the data that needs to be split
+    @return: the training and validation data tensors
     """
 
     n = int(0.9 * len(data))

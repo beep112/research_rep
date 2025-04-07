@@ -112,6 +112,8 @@ $(function(){initNavTree('namespace_tensor___prac.html',''); initResizable(true)
 Functions</h2></td></tr>
 <tr class="memitem:a29b24be91b9caae9f81a327c14a432b0" id="r_a29b24be91b9caae9f81a327c14a432b0"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a29b24be91b9caae9f81a327c14a432b0">main</a> ()</td></tr>
 <tr class="separator:a29b24be91b9caae9f81a327c14a432b0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6a2122dcb28c901f9e2f081014a83698" id="r_a6a2122dcb28c901f9e2f081014a83698"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6a2122dcb28c901f9e2f081014a83698">print_block_size</a> (block_size, train_data)</td></tr>
+<tr class="separator:a6a2122dcb28c901f9e2f081014a83698"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac81472eeab03df34a6e683bba8e4b388" id="r_ac81472eeab03df34a6e683bba8e4b388"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac81472eeab03df34a6e683bba8e4b388">train_val_split</a> (data)</td></tr>
 <tr class="separator:ac81472eeab03df34a6e683bba8e4b388"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
@@ -166,7 +168,57 @@ just is some practice for myself with python, and the tensors in pytorch.
 <div class="line"><span class="lineno">   39</span>    <span class="stringliteral">&quot;&quot;&quot; print the first 1000 elements of tensor &quot;&quot;&quot;</span></div>
 <div class="line"><span class="lineno">   40</span>    print(data[:1000])</div>
 <div class="line"><span class="lineno">   41</span> </div>
-<div class="line"><span class="lineno">   42</span> </div>
+<div class="line"><span class="lineno">   42</span>    <span class="stringliteral">&quot;&quot;&quot; get the train/val split data &quot;&quot;&quot;</span></div>
+<div class="line"><span class="lineno">   43</span>    train_data, val_data = train_val_split(data)</div>
+<div class="line"><span class="lineno">   44</span> </div>
+<div class="line"><span class="lineno">   45</span> </div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a6a2122dcb28c901f9e2f081014a83698" name="a6a2122dcb28c901f9e2f081014a83698"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6a2122dcb28c901f9e2f081014a83698">&#9670;&#160;</a></span>print_block_size()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Tensor_Prac.print_block_size </td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>block_size</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>train_data</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<pre class="fragment">This function will be used to print the block size for the data.
+Another way to describe block size is the amount of context that
+we will look at for each pass for our model. So in this case the
+block_size could be variable but for this we will fix it to 8 for
+this practice model
+
+@param block_size: the size of context we want to take in
+@param train_data: the training data we are using
+@return: void there is nothing returned
+</pre> 
+<p class="definition">Definition at line <a class="el" href="_tensor___prac_8py_source.html#l00046">46</a> of file <a class="el" href="_tensor___prac_8py_source.html">Tensor_Prac.py</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   46</span><span class="keyword">def </span>print_block_size(block_size, train_data):</div>
+<div class="line"><span class="lineno">   47</span>    <span class="stringliteral">&quot;&quot;&quot;</span></div>
+<div class="line"><span class="lineno">   48</span><span class="stringliteral">    This function will be used to print the block size for the data.</span></div>
+<div class="line"><span class="lineno">   49</span><span class="stringliteral">    Another way to describe block size is the amount of context that</span></div>
+<div class="line"><span class="lineno">   50</span><span class="stringliteral">    we will look at for each pass for our model. So in this case the</span></div>
+<div class="line"><span class="lineno">   51</span><span class="stringliteral">    block_size could be variable but for this we will fix it to 8 for</span></div>
+<div class="line"><span class="lineno">   52</span><span class="stringliteral">    this practice model</span></div>
+<div class="line"><span class="lineno">   53</span><span class="stringliteral"></span> </div>
+<div class="line"><span class="lineno">   54</span><span class="stringliteral">    @param block_size: the size of context we want to take in</span></div>
+<div class="line"><span class="lineno">   55</span><span class="stringliteral">    @param train_data: the training data we are using</span></div>
+<div class="line"><span class="lineno">   56</span><span class="stringliteral">    @return: void there is nothing returned</span></div>
+<div class="line"><span class="lineno">   57</span><span class="stringliteral">    &quot;&quot;&quot;</span></div>
+<div class="line"><span class="lineno">   58</span>    print(train_data[: block_size + 1])</div>
+<div class="line"><span class="lineno">   59</span> </div>
+<div class="line"><span class="lineno">   60</span> </div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -186,22 +238,24 @@ just is some practice for myself with python, and the tensors in pytorch.
 </div><div class="memdoc">
 <pre class="fragment">Function that will create a 90% split between the data for testing and validation
 
-@param the data that needs to be split
+@param data: the data that needs to be split
+@return: the training and validation data tensors
 </pre> 
-<p class="definition">Definition at line <a class="el" href="_tensor___prac_8py_source.html#l00043">43</a> of file <a class="el" href="_tensor___prac_8py_source.html">Tensor_Prac.py</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   43</span><span class="keyword">def </span>train_val_split(data):</div>
-<div class="line"><span class="lineno">   44</span>    <span class="stringliteral">&quot;&quot;&quot;</span></div>
-<div class="line"><span class="lineno">   45</span><span class="stringliteral">    Function that will create a 90% split between the data for testing and validation</span></div>
-<div class="line"><span class="lineno">   46</span><span class="stringliteral"></span> </div>
-<div class="line"><span class="lineno">   47</span><span class="stringliteral">    @param the data that needs to be split</span></div>
-<div class="line"><span class="lineno">   48</span><span class="stringliteral">    &quot;&quot;&quot;</span></div>
-<div class="line"><span class="lineno">   49</span> </div>
-<div class="line"><span class="lineno">   50</span>    n = int(0.9 * len(data))</div>
-<div class="line"><span class="lineno">   51</span>    train_data = data[:n]</div>
-<div class="line"><span class="lineno">   52</span>    val_data = data[n:]</div>
-<div class="line"><span class="lineno">   53</span>    <span class="keywordflow">return</span> train_data, val_data</div>
-<div class="line"><span class="lineno">   54</span> </div>
-<div class="line"><span class="lineno">   55</span> </div>
+<p class="definition">Definition at line <a class="el" href="_tensor___prac_8py_source.html#l00061">61</a> of file <a class="el" href="_tensor___prac_8py_source.html">Tensor_Prac.py</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   61</span><span class="keyword">def </span>train_val_split(data):</div>
+<div class="line"><span class="lineno">   62</span>    <span class="stringliteral">&quot;&quot;&quot;</span></div>
+<div class="line"><span class="lineno">   63</span><span class="stringliteral">    Function that will create a 90% split between the data for testing and validation</span></div>
+<div class="line"><span class="lineno">   64</span><span class="stringliteral"></span> </div>
+<div class="line"><span class="lineno">   65</span><span class="stringliteral">    @param data: the data that needs to be split</span></div>
+<div class="line"><span class="lineno">   66</span><span class="stringliteral">    @return: the training and validation data tensors</span></div>
+<div class="line"><span class="lineno">   67</span><span class="stringliteral">    &quot;&quot;&quot;</span></div>
+<div class="line"><span class="lineno">   68</span> </div>
+<div class="line"><span class="lineno">   69</span>    n = int(0.9 * len(data))</div>
+<div class="line"><span class="lineno">   70</span>    train_data = data[:n]</div>
+<div class="line"><span class="lineno">   71</span>    val_data = data[n:]</div>
+<div class="line"><span class="lineno">   72</span>    <span class="keywordflow">return</span> train_data, val_data</div>
+<div class="line"><span class="lineno">   73</span> </div>
+<div class="line"><span class="lineno">   74</span> </div>
 </div><!-- fragment -->
 </div>
 </div>
