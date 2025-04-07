@@ -4,6 +4,10 @@
 
 This file contains practice code for working with PyTorch tensors and basic data processing
 for transformer models, including data loading, encoding/decoding, and batch creation.
+
+@author Jason Perndreca
+@version %I%, %G%
+@since 1.0
 """
 
 import os.path
