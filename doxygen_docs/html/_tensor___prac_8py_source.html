@@ -126,8 +126,8 @@ $(function(){initNavTree('_tensor___prac_8py_source.html',''); initResizable(tru
 <div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="stringliteral">    Opens a text file, processes the data, creates training/validation splits,</span></div>
 <div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="stringliteral">    and demonstrates block size operations.</span></div>
 <div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span><span class="stringliteral"></span> </div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span><span class="stringliteral">    @return: none</span></div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span><span class="stringliteral">    @rtype: none</span></div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span><span class="stringliteral">    @return: None</span></div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span><span class="stringliteral">    @rtype: None</span></div>
 <div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span><span class="stringliteral">    &quot;&quot;&quot;</span></div>
 <div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>    <span class="keyword">with</span> open(os.path.dirname(__file__) + <span class="stringliteral">&quot;/../input.txt&quot;</span>, <span class="stringliteral">&quot;r&quot;</span>, encoding=<span class="stringliteral">&quot;utf-8&quot;</span>) <span class="keyword">as</span> f:</div>
 <div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>        text = f.read()</div>
@@ -179,11 +179,11 @@ $(function(){initNavTree('_tensor___prac_8py_source.html',''); initResizable(tru
 <div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span><span class="stringliteral">    this practice model</span></div>
 <div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span><span class="stringliteral"></span> </div>
 <div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span><span class="stringliteral">    @param block_size: the size of context we want to take in</span></div>
-<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span><span class="stringliteral">    @type block_size: int</span></div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span><span class="stringliteral">    @type block_size: Int</span></div>
 <div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span><span class="stringliteral">    @param train_data: the training data we are using</span></div>
 <div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span><span class="stringliteral">    @type train_data: torch.Tensor</span></div>
-<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span><span class="stringliteral">    @return: none</span></div>
-<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span><span class="stringliteral">    @rtype: none</span></div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span><span class="stringliteral">    @return: None</span></div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span><span class="stringliteral">    @rtype: None</span></div>
 <div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span><span class="stringliteral">    &quot;&quot;&quot;</span></div>
 <div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>    print(train_data[: block_size + 1])</div>
 <div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span> </div>
@@ -206,9 +206,9 @@ $(function(){initNavTree('_tensor___prac_8py_source.html',''); initResizable(tru
 <div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span><span class="stringliteral">    Creates a 90%/10% split between training and validation data.</span></div>
 <div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span><span class="stringliteral"></span> </div>
 <div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span><span class="stringliteral">    @param data: Full dataset tensor</span></div>
-<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span><span class="stringliteral">    @type data: torch.Tensor</span></div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span><span class="stringliteral">    @type data: Torch.Tensor</span></div>
 <div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span><span class="stringliteral">    @return: Tuple of (train_data, val_data)</span></div>
-<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span><span class="stringliteral">    @rtype: tuple(torch.Tensor, torch.Tensor)</span></div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span><span class="stringliteral">    @rtype: Tuple(torch.Tensor, torch.Tensor)</span></div>
 <div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span><span class="stringliteral">    &quot;&quot;&quot;</span></div>
 <div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span> </div>
 <div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>    n = int(0.9 * len(data))</div>

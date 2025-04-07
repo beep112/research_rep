@@ -138,7 +138,7 @@ Functions</h2></td></tr>
 
 <p>Main function that loads data and demonstrates basic tensor operations. </p>
 <p>Opens a text file, processes the data, creates training/validation splits, and demonstrates block size operations.</p>
-<dl class="section return"><dt>Returns</dt><dd>: none @rtype: none </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>: None @rtype: None </dd></dl>
 
 <p class="definition">Definition at line <a class="el" href="_tensor___prac_8py_source.html#l00014">14</a> of file <a class="el" href="_tensor___prac_8py_source.html">Tensor_Prac.py</a>.</p>
 <div class="fragment"><div class="line"><span class="lineno">   14</span><span class="keyword">def </span>main():</div>
@@ -148,8 +148,8 @@ Functions</h2></td></tr>
 <div class="line"><span class="lineno">   18</span><span class="stringliteral">    Opens a text file, processes the data, creates training/validation splits,</span></div>
 <div class="line"><span class="lineno">   19</span><span class="stringliteral">    and demonstrates block size operations.</span></div>
 <div class="line"><span class="lineno">   20</span><span class="stringliteral"></span> </div>
-<div class="line"><span class="lineno">   21</span><span class="stringliteral">    @return: none</span></div>
-<div class="line"><span class="lineno">   22</span><span class="stringliteral">    @rtype: none</span></div>
+<div class="line"><span class="lineno">   21</span><span class="stringliteral">    @return: None</span></div>
+<div class="line"><span class="lineno">   22</span><span class="stringliteral">    @rtype: None</span></div>
 <div class="line"><span class="lineno">   23</span><span class="stringliteral">    &quot;&quot;&quot;</span></div>
 <div class="line"><span class="lineno">   24</span>    <span class="keyword">with</span> open(os.path.dirname(__file__) + <span class="stringliteral">&quot;/../input.txt&quot;</span>, <span class="stringliteral">&quot;r&quot;</span>, encoding=<span class="stringliteral">&quot;utf-8&quot;</span>) <span class="keyword">as</span> f:</div>
 <div class="line"><span class="lineno">   25</span>        text = f.read()</div>
@@ -216,12 +216,12 @@ Functions</h2></td></tr>
 <p>This function will be used to print the block size for the data. Another way to describe block size is the amount of context that we will look at for each pass for our model. So in this case the block_size could be variable but for this we will fix it to 8 for this practice model</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">block_size</td><td>the size of context we want to take in @type block_size: int </td></tr>
+    <tr><td class="paramname">block_size</td><td>the size of context we want to take in @type block_size: Int </td></tr>
     <tr><td class="paramname">train_data</td><td>the training data we are using @type train_data: torch.Tensor </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>: none @rtype: none </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>: None @rtype: None </dd></dl>
 
 <p class="definition">Definition at line <a class="el" href="_tensor___prac_8py_source.html#l00058">58</a> of file <a class="el" href="_tensor___prac_8py_source.html">Tensor_Prac.py</a>.</p>
 <div class="fragment"><div class="line"><span class="lineno">   58</span><span class="keyword">def </span>print_block_size(block_size, train_data):</div>
@@ -238,11 +238,11 @@ Functions</h2></td></tr>
 <div class="line"><span class="lineno">   69</span><span class="stringliteral">    this practice model</span></div>
 <div class="line"><span class="lineno">   70</span><span class="stringliteral"></span> </div>
 <div class="line"><span class="lineno">   71</span><span class="stringliteral">    @param block_size: the size of context we want to take in</span></div>
-<div class="line"><span class="lineno">   72</span><span class="stringliteral">    @type block_size: int</span></div>
+<div class="line"><span class="lineno">   72</span><span class="stringliteral">    @type block_size: Int</span></div>
 <div class="line"><span class="lineno">   73</span><span class="stringliteral">    @param train_data: the training data we are using</span></div>
 <div class="line"><span class="lineno">   74</span><span class="stringliteral">    @type train_data: torch.Tensor</span></div>
-<div class="line"><span class="lineno">   75</span><span class="stringliteral">    @return: none</span></div>
-<div class="line"><span class="lineno">   76</span><span class="stringliteral">    @rtype: none</span></div>
+<div class="line"><span class="lineno">   75</span><span class="stringliteral">    @return: None</span></div>
+<div class="line"><span class="lineno">   76</span><span class="stringliteral">    @rtype: None</span></div>
 <div class="line"><span class="lineno">   77</span><span class="stringliteral">    &quot;&quot;&quot;</span></div>
 <div class="line"><span class="lineno">   78</span>    print(train_data[: block_size + 1])</div>
 <div class="line"><span class="lineno">   79</span> </div>
@@ -280,11 +280,11 @@ Functions</h2></td></tr>
 <p>Creates a 90%/10% split between training and validation data.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">data</td><td>Full dataset tensor @type data: torch.Tensor </td></tr>
+    <tr><td class="paramname">data</td><td>Full dataset tensor @type data: Torch.Tensor </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>: Tuple of (train_data, val_data) @rtype: tuple(torch.Tensor, torch.Tensor) </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>: Tuple of (train_data, val_data) @rtype: Tuple(torch.Tensor, torch.Tensor) </dd></dl>
 
 <p class="definition">Definition at line <a class="el" href="_tensor___prac_8py_source.html#l00090">90</a> of file <a class="el" href="_tensor___prac_8py_source.html">Tensor_Prac.py</a>.</p>
 <div class="fragment"><div class="line"><span class="lineno">   90</span><span class="keyword">def </span>train_val_split(data):</div>
@@ -294,9 +294,9 @@ Functions</h2></td></tr>
 <div class="line"><span class="lineno">   94</span><span class="stringliteral">    Creates a 90%/10% split between training and validation data.</span></div>
 <div class="line"><span class="lineno">   95</span><span class="stringliteral"></span> </div>
 <div class="line"><span class="lineno">   96</span><span class="stringliteral">    @param data: Full dataset tensor</span></div>
-<div class="line"><span class="lineno">   97</span><span class="stringliteral">    @type data: torch.Tensor</span></div>
+<div class="line"><span class="lineno">   97</span><span class="stringliteral">    @type data: Torch.Tensor</span></div>
 <div class="line"><span class="lineno">   98</span><span class="stringliteral">    @return: Tuple of (train_data, val_data)</span></div>
-<div class="line"><span class="lineno">   99</span><span class="stringliteral">    @rtype: tuple(torch.Tensor, torch.Tensor)</span></div>
+<div class="line"><span class="lineno">   99</span><span class="stringliteral">    @rtype: Tuple(torch.Tensor, torch.Tensor)</span></div>
 <div class="line"><span class="lineno">  100</span><span class="stringliteral">    &quot;&quot;&quot;</span></div>
 <div class="line"><span class="lineno">  101</span> </div>
 <div class="line"><span class="lineno">  102</span>    n = int(0.9 * len(data))</div>
