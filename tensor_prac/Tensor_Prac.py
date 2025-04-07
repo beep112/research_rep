@@ -17,6 +17,9 @@ def main():
 
     Opens a text file, processes the data, creates training/validation splits,
     and demonstrates block size operations.
+
+    @return: none
+    @rtype: none
     """
     with open(os.path.dirname(__file__) + "/../input.txt", "r", encoding="utf-8") as f:
         text = f.read()
@@ -70,6 +73,7 @@ def print_block_size(block_size, train_data):
     @param train_data: the training data we are using
     @type train_data: torch.Tensor
     @return: none
+    @rtype: none
     """
     print(train_data[: block_size + 1])
 
