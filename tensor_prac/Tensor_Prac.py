@@ -7,7 +7,6 @@ for transformer models, including data loading, encoding/decoding, and batch cre
 
 @author Jason Perndreca
 @version %I%, %G%
-@since 1.0
 """
 
 import os.path
