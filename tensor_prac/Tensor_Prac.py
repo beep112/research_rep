@@ -41,6 +41,7 @@ def main():
 
     """ get the train/val split data """
     train_data, val_data = train_val_split(data)
+    print_block_size(8, train_data)
 
 
 def print_block_size(block_size, train_data):
@@ -52,10 +53,22 @@ def print_block_size(block_size, train_data):
     this practice model
 
     @param block_size: the size of context we want to take in
+    @type block_size: int
     @param train_data: the training data we are using
+    @type train_data: numpy.ndarray
     @return: void there is nothing returned
     """
     print(train_data[: block_size + 1])
+    """
+    x will be used at training data and compared against y which is the
+    actual next token
+    """
+    x = train_data[:block_size]
+    y = train_data[1 : block_size + 1]
+    for t in range(block_size):
+        context = x[: t + 1]
+        target = y[t]
+        print(f"when input is {context} the target: {target}")
 
 
 def train_val_split(data):
