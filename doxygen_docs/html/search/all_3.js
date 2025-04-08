@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['vocab_5fsize_0',['vocab_size',['../namespace_tensor___prac.html#aecb5621199fb95c763eed705446d61c5',1,'Tensor_Prac']]]
+  ['columns_0',['columns',['../namespace_data___parse.html#a8e12bc977adf78f0a0400f0eb2386295',1,'Data_Parse']]]
 ];

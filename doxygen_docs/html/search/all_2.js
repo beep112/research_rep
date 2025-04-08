@@ -1,6 +1,7 @@
 var searchData=
 [
-  ['tensor_5fprac_0',['Tensor_Prac',['../namespace_tensor___prac.html',1,'']]],
-  ['tensor_5fprac_2epy_1',['Tensor_Prac.py',['../_tensor___prac_8py.html',1,'']]],
-  ['train_5fval_5fsplit_2',['train_val_split',['../namespace_tensor___prac.html#ac81472eeab03df34a6e683bba8e4b388',1,'Tensor_Prac']]]
+  ['bigram_0',['bigram',['../namespacebigram.html',1,'']]],
+  ['bigram_2epy_1',['Bigram.py',['../_bigram_8py.html',1,'']]],
+  ['bigram_3a_3abigram_2',['Bigram',['../namespacebigram_1_1_bigram.html',1,'bigram']]],
+  ['bigramlanguagemodel_3',['BigramLanguageModel',['../classbigram_1_1_bigram_1_1_bigram_language_model.html',1,'bigram::Bigram']]]
 ];

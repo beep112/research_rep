@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['encoding_0',['encoding',['../namespace_tensor___prac.html#a5767b7b55451c3874e8f7c87035fa55d',1,'Tensor_Prac']]]
+  ['columns_0',['columns',['../namespace_data___parse.html#a8e12bc977adf78f0a0400f0eb2386295',1,'Data_Parse']]]
 ];

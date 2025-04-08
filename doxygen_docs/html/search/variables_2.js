@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['text_0',['text',['../namespace_tensor___prac.html#a1be0ebed450e6b079b85fb07b2fb9314',1,'Tensor_Prac']]]
+  ['data_0',['data',['../namespace_data___parse.html#a5112093ad029d803ce800b14aef4e015',1,'Data_Parse']]],
+  ['df_1',['df',['../namespace_data___parse.html#a5e6b5bf13606a6bd6baaae58e1b0e5bf',1,'Data_Parse']]]
 ];
