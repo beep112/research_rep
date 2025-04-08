@@ -23,6 +23,9 @@ def main():
 
     @return None
     """
+
+    # ensure that when data is randomly sampled we can reproduce that result
+    torch.manual_seed(1337)
     with open(os.path.dirname(__file__) + "/../input.txt", "r", encoding="utf-8") as f:
         text = f.read()
 
@@ -55,6 +58,8 @@ def main():
     # get the train/val split data
     train_data, val_data = train_val_split(data)
     print_block_size(8, train_data)
+    input, targs = get_batch(4, 8, "train", train_data, val_data)
+    print_training_batch(input, targs, 4, 8)
 
 
 def print_block_size(block_size, train_data):
@@ -100,6 +105,61 @@ def train_val_split(data):
     train_data = data[:n]
     val_data = data[n:]
     return train_data, val_data
+
+
+def get_batch(batch_size, block_size, split, train_data, val_data):
+    """
+    @brief creates a training batch that can be stacked (better for gpus)
+
+    When training data we can create a batch of block sizes to train on which is better for
+    GPUs as they want to process multiple calcuations in one input
+
+    @param batch_size: the size of the batch (how many independent sequences will we process in parallel)
+    @param block_size: the size of the context (what is the maximum context length for predictions)
+    @param train_data: the Tensor that stores the data used to train
+    @param val_data: the Tensor that stores the data used to validate
+    @return Tuple(Tensor(batch_inputs), Tensor(batch_targets))
+
+    """
+    data = train_data if split == "train" else val_data
+    # randint will generate a random location for training
+    ix = torch.randint(len(data) - block_size, (batch_size,))
+    # stack can be used to append a tensor to another
+    x = torch.stack([data[i : i + block_size] for i in ix])
+    y = torch.stack([data[i + 1 : i + block_size + 1] for i in ix])
+    return x, y
+
+
+def print_training_batch(input, targs, batch_size, block_size):
+    """
+    @brief creates a training batch that can be stacked (better for gpus)
+
+    When training data we can create a batch of block sizes to train on which is better for
+    GPUs as they want to process multiple calcuations in one input
+
+    @param input: the input batch tensor
+    @param targs: the output batch tensor
+    @param batch_size: the batch_size of our input tensors
+    @param block_size: the batch_size of our model
+    @return None
+
+    """
+    print()
+    print("inputs:")
+    print(input.shape)
+    print(input)
+    print("targets:")
+    print(targs.shape)
+    print(targs)
+    print("---------")
+    # this is how we would traverse this batch tensor (it's basically a matrix)
+    for b in range(batch_size):
+        for t in range(block_size):
+            context = input[b, : t + 1]
+            target = targs[b, t]
+            print(f"when input is {context.tolist()} the target: {target}")
+
+    # seed for this because we want to make it random but reproducable
 
 
 if __name__ == "__main__":
