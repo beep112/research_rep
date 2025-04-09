@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['figsize_0',['figsize',['../namespace_data___parse.html#a653a2bcf42ab54d256da723905d8ddd0',1,'Data_Parse']]],
-  ['file_5fpath_1',['file_path',['../class_graph___dataset_1_1_graph_dataset.html#a27ed081e64e21dc97c1cfecce47385d9',1,'Graph_Dataset::GraphDataset']]],
-  ['fontsize_2',['fontsize',['../namespace_data___parse.html#a368a089cca51dde67f57db7e77da33be',1,'Data_Parse']]]
+  ['data_0',['data',['../namespace_data___parse.html#a5112093ad029d803ce800b14aef4e015',1,'Data_Parse']]],
+  ['device_1',['device',['../namespacebigram_1_1_bigram.html#ad8c2b2b00ed377f01749be66d6b0451d',1,'bigram::Bigram']]],
+  ['df_2',['df',['../namespace_data___parse.html#a5e6b5bf13606a6bd6baaae58e1b0e5bf',1,'Data_Parse']]]
 ];

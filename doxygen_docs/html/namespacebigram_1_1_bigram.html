@@ -104,7 +104,8 @@ $(function(){initNavTree('namespacebigram_1_1_bigram.html',''); initResizable(tr
 <div class="header">
   <div class="summary">
 <a href="#nested-classes">Classes</a> &#124;
-<a href="#func-members">Functions</a>  </div>
+<a href="#func-members">Functions</a> &#124;
+<a href="#var-members">Variables</a>  </div>
   <div class="headertitle"><div class="title">bigram.Bigram Namespace Reference</div></div>
 </div><!--header-->
 <div class="contents">
@@ -118,6 +119,23 @@ Classes</h2></td></tr>
 Functions</h2></td></tr>
 <tr class="memitem:a848b4b62babc54148cb819f44886ba74" id="r_a848b4b62babc54148cb819f44886ba74"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a848b4b62babc54148cb819f44886ba74">main</a> ()</td></tr>
 <tr class="separator:a848b4b62babc54148cb819f44886ba74"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
+Variables</h2></td></tr>
+<tr class="memitem:aad4fcfafd7e263d71dbfe38028064b9b" id="r_aad4fcfafd7e263d71dbfe38028064b9b"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aad4fcfafd7e263d71dbfe38028064b9b">batch_size</a> = 32</td></tr>
+<tr class="separator:aad4fcfafd7e263d71dbfe38028064b9b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abca86d02e81772abf267fe6c3a0b72cb" id="r_abca86d02e81772abf267fe6c3a0b72cb"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#abca86d02e81772abf267fe6c3a0b72cb">block_size</a> = 8</td></tr>
+<tr class="separator:abca86d02e81772abf267fe6c3a0b72cb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0ee1b0a93258b7f1202db608d9972134" id="r_a0ee1b0a93258b7f1202db608d9972134"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0ee1b0a93258b7f1202db608d9972134">max_iters</a> = 100000</td></tr>
+<tr class="separator:a0ee1b0a93258b7f1202db608d9972134"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1e4abdcf7d92c6887579eed510387f94" id="r_a1e4abdcf7d92c6887579eed510387f94"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1e4abdcf7d92c6887579eed510387f94">eval_interval</a> = 100</td></tr>
+<tr class="separator:a1e4abdcf7d92c6887579eed510387f94"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0f81b7cfe2733e118b9f0ea3dac4f9f2" id="r_a0f81b7cfe2733e118b9f0ea3dac4f9f2"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0f81b7cfe2733e118b9f0ea3dac4f9f2">learning_rate</a> = 1e-2</td></tr>
+<tr class="separator:a0f81b7cfe2733e118b9f0ea3dac4f9f2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad8c2b2b00ed377f01749be66d6b0451d" id="r_ad8c2b2b00ed377f01749be66d6b0451d"><td class="memItemLeft" align="right" valign="top">str&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad8c2b2b00ed377f01749be66d6b0451d">device</a> = &quot;cuda&quot; if torch.cuda.is_available() else &quot;cpu&quot;</td></tr>
+<tr class="separator:ad8c2b2b00ed377f01749be66d6b0451d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2d72b7c231207cf43b170578aa3bf6e0" id="r_a2d72b7c231207cf43b170578aa3bf6e0"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2d72b7c231207cf43b170578aa3bf6e0">eval_iters</a> = 200</td></tr>
+<tr class="separator:a2d72b7c231207cf43b170578aa3bf6e0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
 <a id="a848b4b62babc54148cb819f44886ba74" name="a848b4b62babc54148cb819f44886ba74"></a>
@@ -135,42 +153,179 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_bigram_8py_source.html#l00028">28</a> of file <a class="el" href="_bigram_8py_source.html">Bigram.py</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   28</span><span class="keyword">def </span>main():</div>
-<div class="line"><span class="lineno">   29</span>    input_path = os.path.abspath(</div>
-<div class="line"><span class="lineno">   30</span>        os.path.join(os.path.dirname(__file__), <span class="stringliteral">&quot;..&quot;</span>, <span class="stringliteral">&quot;input.txt&quot;</span>)</div>
-<div class="line"><span class="lineno">   31</span>    )</div>
-<div class="line"><span class="lineno">   32</span>    <span class="keyword">with</span> open(input_path, <span class="stringliteral">&quot;r&quot;</span>, encoding=<span class="stringliteral">&quot;utf-8&quot;</span>) <span class="keyword">as</span> f:</div>
-<div class="line"><span class="lineno">   33</span>        text = f.read()</div>
-<div class="line"><span class="lineno">   34</span> </div>
-<div class="line"><span class="lineno">   35</span>    chars = sorted(list(set(text)))</div>
-<div class="line"><span class="lineno">   36</span>    vocab_size = len(chars)</div>
-<div class="line"><span class="lineno">   37</span> </div>
-<div class="line"><span class="lineno">   38</span>    <span class="comment"># create a mapping from characters to integers</span></div>
-<div class="line"><span class="lineno">   39</span>    stoi = {ch: i <span class="keywordflow">for</span> i, ch <span class="keywordflow">in</span> enumerate(chars)}</div>
-<div class="line"><span class="lineno">   40</span>    <span class="comment"># create the reverse mapping taking an integer to a string</span></div>
-<div class="line"><span class="lineno">   41</span>    itos = {i: ch <span class="keywordflow">for</span> i, ch <span class="keywordflow">in</span> enumerate(chars)}</div>
-<div class="line"><span class="lineno">   42</span> </div>
-<div class="line"><span class="lineno">   43</span>    encode = <span class="keyword">lambda</span> s: [stoi[c] <span class="keywordflow">for</span> c <span class="keywordflow">in</span> s]</div>
-<div class="line"><span class="lineno">   44</span>    decode = <span class="keyword">lambda</span> l: <span class="stringliteral">&quot;&quot;</span>.join([itos[i] <span class="keywordflow">for</span> i <span class="keywordflow">in</span> l])</div>
-<div class="line"><span class="lineno">   45</span> </div>
-<div class="line"><span class="lineno">   46</span>    <span class="comment"># create a tensor representing the encoding of all the text</span></div>
-<div class="line"><span class="lineno">   47</span>    data = torch.tensor(encode(text), dtype=torch.long)</div>
+<p class="definition">Definition at line <a class="el" href="_bigram_8py_source.html#l00042">42</a> of file <a class="el" href="_bigram_8py_source.html">Bigram.py</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   42</span><span class="keyword">def </span>main():</div>
+<div class="line"><span class="lineno">   43</span>    input_path = os.path.abspath(</div>
+<div class="line"><span class="lineno">   44</span>        os.path.join(os.path.dirname(__file__), <span class="stringliteral">&quot;..&quot;</span>, <span class="stringliteral">&quot;input.txt&quot;</span>)</div>
+<div class="line"><span class="lineno">   45</span>    )</div>
+<div class="line"><span class="lineno">   46</span>    <span class="keyword">with</span> open(input_path, <span class="stringliteral">&quot;r&quot;</span>, encoding=<span class="stringliteral">&quot;utf-8&quot;</span>) <span class="keyword">as</span> f:</div>
+<div class="line"><span class="lineno">   47</span>        text = f.read()</div>
 <div class="line"><span class="lineno">   48</span> </div>
-<div class="line"><span class="lineno">   49</span>    train_data, val_data = tp.train_val_split(data)</div>
-<div class="line"><span class="lineno">   50</span>    batch_size = 4</div>
-<div class="line"><span class="lineno">   51</span>    block_size = 8</div>
-<div class="line"><span class="lineno">   52</span>    input, targs = tp.get_batch(batch_size, block_size, <span class="stringliteral">&quot;train&quot;</span>, train_data, val_data)</div>
-<div class="line"><span class="lineno">   53</span> </div>
-<div class="line"><span class="lineno">   54</span>    m = BigramLanguageModel(vocab_size)</div>
-<div class="line"><span class="lineno">   55</span>    logits, loss = m(input, targs)</div>
+<div class="line"><span class="lineno">   49</span>    chars = sorted(list(set(text)))</div>
+<div class="line"><span class="lineno">   50</span>    vocab_size = len(chars)</div>
+<div class="line"><span class="lineno">   51</span> </div>
+<div class="line"><span class="lineno">   52</span>    <span class="comment"># create a mapping from characters to integers</span></div>
+<div class="line"><span class="lineno">   53</span>    stoi = {ch: i <span class="keywordflow">for</span> i, ch <span class="keywordflow">in</span> enumerate(chars)}</div>
+<div class="line"><span class="lineno">   54</span>    <span class="comment"># create the reverse mapping taking an integer to a string</span></div>
+<div class="line"><span class="lineno">   55</span>    itos = {i: ch <span class="keywordflow">for</span> i, ch <span class="keywordflow">in</span> enumerate(chars)}</div>
 <div class="line"><span class="lineno">   56</span> </div>
-<div class="line"><span class="lineno">   57</span>    print(logits.shape)</div>
-<div class="line"><span class="lineno">   58</span>    print(loss)</div>
+<div class="line"><span class="lineno">   57</span>    encode = <span class="keyword">lambda</span> s: [stoi[c] <span class="keywordflow">for</span> c <span class="keywordflow">in</span> s]</div>
+<div class="line"><span class="lineno">   58</span>    decode = <span class="keyword">lambda</span> l: <span class="stringliteral">&quot;&quot;</span>.join([itos[i] <span class="keywordflow">for</span> i <span class="keywordflow">in</span> l])</div>
 <div class="line"><span class="lineno">   59</span> </div>
-<div class="line"><span class="lineno">   60</span> </div>
+<div class="line"><span class="lineno">   60</span>    <span class="comment"># create a tensor representing the encoding of all the text</span></div>
+<div class="line"><span class="lineno">   61</span>    data = torch.tensor(encode(text), dtype=torch.long)</div>
+<div class="line"><span class="lineno">   62</span> </div>
+<div class="line"><span class="lineno">   63</span>    train_data, val_data = tp.train_val_split(data)</div>
+<div class="line"><span class="lineno">   64</span>    batch_size = 4</div>
+<div class="line"><span class="lineno">   65</span>    block_size = 8</div>
+<div class="line"><span class="lineno">   66</span>    input, targs = tp.get_batch(batch_size, block_size, <span class="stringliteral">&quot;train&quot;</span>, train_data, val_data)</div>
+<div class="line"><span class="lineno">   67</span> </div>
+<div class="line"><span class="lineno">   68</span>    m = BigramLanguageModel(vocab_size)</div>
+<div class="line"><span class="lineno">   69</span>    logits, loss = m(input, targs)</div>
+<div class="line"><span class="lineno">   70</span> </div>
+<div class="line"><span class="lineno">   71</span>    print(logits.shape)</div>
+<div class="line"><span class="lineno">   72</span>    print(loss)</div>
+<div class="line"><span class="lineno">   73</span> </div>
+<div class="line"><span class="lineno">   74</span>    idx = torch.zeros((1, 1), dtype=torch.long)</div>
+<div class="line"><span class="lineno">   75</span>    <span class="comment"># before training the model generating tokens will split out complete</span></div>
+<div class="line"><span class="lineno">   76</span>    <span class="comment"># nonsense since the weights are random</span></div>
+<div class="line"><span class="lineno">   77</span>    print(<span class="stringliteral">&quot;Before training: 100 generated tokens&quot;</span>)</div>
+<div class="line"><span class="lineno">   78</span>    print(decode(m.generate(idx, max_new_tokens=eval_interval)[0].tolist()))</div>
+<div class="line"><span class="lineno">   79</span> </div>
+<div class="line"><span class="lineno">   80</span>    <span class="comment"># TRAINING WORK</span></div>
+<div class="line"><span class="lineno">   81</span>    print(<span class="stringliteral">&quot;Training loss values&quot;</span>)</div>
+<div class="line"><span class="lineno">   82</span>    optimizer = torch.optim.AdamW(m.parameters(), lr=1e-3)</div>
+<div class="line"><span class="lineno">   83</span>    batch_size = 32</div>
+<div class="line"><span class="lineno">   84</span>    <span class="keywordflow">for</span> step <span class="keywordflow">in</span> range(max_iters):</div>
+<div class="line"><span class="lineno">   85</span>        input, targs = tp.get_batch(</div>
+<div class="line"><span class="lineno">   86</span>            batch_size, block_size, <span class="stringliteral">&quot;train&quot;</span>, train_data, val_data</div>
+<div class="line"><span class="lineno">   87</span>        )</div>
+<div class="line"><span class="lineno">   88</span>        logits, loss = m(input, targs)</div>
+<div class="line"><span class="lineno">   89</span>        optimizer.zero_grad(set_to_none=<span class="keyword">True</span>)</div>
+<div class="line"><span class="lineno">   90</span>        loss.backward()</div>
+<div class="line"><span class="lineno">   91</span>        optimizer.step()</div>
+<div class="line"><span class="lineno">   92</span>        <span class="keywordflow">if</span> step % 10000 == 0:</div>
+<div class="line"><span class="lineno">   93</span>            print(loss.item())</div>
+<div class="line"><span class="lineno">   94</span> </div>
+<div class="line"><span class="lineno">   95</span>    print(<span class="stringliteral">&quot;After training: 100 generated tokens&quot;</span>)</div>
+<div class="line"><span class="lineno">   96</span>    print(decode(m.generate(idx, max_new_tokens=eval_interval)[0].tolist()))</div>
+<div class="line"><span class="lineno">   97</span> </div>
+<div class="line"><span class="lineno">   98</span> </div>
 </div><!-- fragment -->
-<p class="reference">Referenced by <a class="el" href="_bigram_8py_source.html#l00101">bigram.Bigram.BigramLanguageModel.generate()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="_bigram_8py_source.html#l00141">bigram.Bigram.BigramLanguageModel.generate()</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Variable Documentation</h2>
+<a id="aad4fcfafd7e263d71dbfe38028064b9b" name="aad4fcfafd7e263d71dbfe38028064b9b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aad4fcfafd7e263d71dbfe38028064b9b">&#9670;&#160;</a></span>batch_size</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int bigram.Bigram.batch_size = 32</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="_bigram_8py_source.html#l00016">16</a> of file <a class="el" href="_bigram_8py_source.html">Bigram.py</a>.</p>
+
+</div>
+</div>
+<a id="abca86d02e81772abf267fe6c3a0b72cb" name="abca86d02e81772abf267fe6c3a0b72cb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abca86d02e81772abf267fe6c3a0b72cb">&#9670;&#160;</a></span>block_size</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int bigram.Bigram.block_size = 8</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="_bigram_8py_source.html#l00017">17</a> of file <a class="el" href="_bigram_8py_source.html">Bigram.py</a>.</p>
+
+</div>
+</div>
+<a id="ad8c2b2b00ed377f01749be66d6b0451d" name="ad8c2b2b00ed377f01749be66d6b0451d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad8c2b2b00ed377f01749be66d6b0451d">&#9670;&#160;</a></span>device</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">str bigram.Bigram.device = &quot;cuda&quot; if torch.cuda.is_available() else &quot;cpu&quot;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="_bigram_8py_source.html#l00021">21</a> of file <a class="el" href="_bigram_8py_source.html">Bigram.py</a>.</p>
+
+</div>
+</div>
+<a id="a1e4abdcf7d92c6887579eed510387f94" name="a1e4abdcf7d92c6887579eed510387f94"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1e4abdcf7d92c6887579eed510387f94">&#9670;&#160;</a></span>eval_interval</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int bigram.Bigram.eval_interval = 100</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="_bigram_8py_source.html#l00019">19</a> of file <a class="el" href="_bigram_8py_source.html">Bigram.py</a>.</p>
+
+</div>
+</div>
+<a id="a2d72b7c231207cf43b170578aa3bf6e0" name="a2d72b7c231207cf43b170578aa3bf6e0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2d72b7c231207cf43b170578aa3bf6e0">&#9670;&#160;</a></span>eval_iters</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int bigram.Bigram.eval_iters = 200</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="_bigram_8py_source.html#l00022">22</a> of file <a class="el" href="_bigram_8py_source.html">Bigram.py</a>.</p>
+
+</div>
+</div>
+<a id="a0f81b7cfe2733e118b9f0ea3dac4f9f2" name="a0f81b7cfe2733e118b9f0ea3dac4f9f2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0f81b7cfe2733e118b9f0ea3dac4f9f2">&#9670;&#160;</a></span>learning_rate</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int bigram.Bigram.learning_rate = 1e-2</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="_bigram_8py_source.html#l00020">20</a> of file <a class="el" href="_bigram_8py_source.html">Bigram.py</a>.</p>
+
+</div>
+</div>
+<a id="a0ee1b0a93258b7f1202db608d9972134" name="a0ee1b0a93258b7f1202db608d9972134"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0ee1b0a93258b7f1202db608d9972134">&#9670;&#160;</a></span>max_iters</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int bigram.Bigram.max_iters = 100000</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="_bigram_8py_source.html#l00018">18</a> of file <a class="el" href="_bigram_8py_source.html">Bigram.py</a>.</p>
 
 </div>
 </div>

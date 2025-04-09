@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['rotation_0',['rotation',['../namespace_data___parse.html#a35e1e51a225ec6c8368880c3c7625ba1',1,'Data_Parse']]]
+  ['learning_5frate_0',['learning_rate',['../namespacebigram_1_1_bigram.html#a0f81b7cfe2733e118b9f0ea3dac4f9f2',1,'bigram::Bigram']]]
 ];

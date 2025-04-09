@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['main_0',['main',['../namespacebigram_1_1_bigram.html#a848b4b62babc54148cb819f44886ba74',1,'bigram.Bigram.main()'],['../namespacetensor__prac_1_1_tensor___prac.html#a2e70ac6392d8f932fce031eb1f942d10',1,'tensor_prac.Tensor_Prac.main()']]]
+  ['learning_5frate_0',['learning_rate',['../namespacebigram_1_1_bigram.html#a0f81b7cfe2733e118b9f0ea3dac4f9f2',1,'bigram::Bigram']]],
+  ['load_5fgraphs_1',['load_graphs',['../class_graph___dataset_1_1_graph_dataset.html#a43ee3208565d333100b8c270d9921ab5',1,'Graph_Dataset::GraphDataset']]]
 ];

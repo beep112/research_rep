@@ -1,9 +1,7 @@
 var searchData=
 [
-  ['generate_0',['generate',['../classbigram_1_1_bigram_1_1_bigram_language_model.html#a05e108e0fdb58d0ba49ed5db506e6c94',1,'bigram::Bigram::BigramLanguageModel']]],
-  ['get_5fbatch_1',['get_batch',['../namespacetensor__prac_1_1_tensor___prac.html#a5828c347e544b1b63727e19853f3647e',1,'tensor_prac::Tensor_Prac']]],
-  ['graph_5fdataset_2',['Graph_Dataset',['../namespace_graph___dataset.html',1,'']]],
-  ['graph_5fdataset_2epy_3',['Graph_Dataset.py',['../_graph___dataset_8py.html',1,'']]],
-  ['graphdataset_4',['GraphDataset',['../class_graph___dataset_1_1_graph_dataset.html',1,'Graph_Dataset']]],
-  ['graphs_5',['graphs',['../class_graph___dataset_1_1_graph_dataset.html#aa270fe16c69404d5b054414c82d0d977',1,'Graph_Dataset::GraphDataset']]]
+  ['figsize_0',['figsize',['../namespace_data___parse.html#a653a2bcf42ab54d256da723905d8ddd0',1,'Data_Parse']]],
+  ['file_5fpath_1',['file_path',['../class_graph___dataset_1_1_graph_dataset.html#a27ed081e64e21dc97c1cfecce47385d9',1,'Graph_Dataset::GraphDataset']]],
+  ['fontsize_2',['fontsize',['../namespace_data___parse.html#a368a089cca51dde67f57db7e77da33be',1,'Data_Parse']]],
+  ['forward_3',['forward',['../classbigram_1_1_bigram_1_1_bigram_language_model.html#a435f88e2ac188b716c6f2d7e9671b1cc',1,'bigram::Bigram::BigramLanguageModel']]]
 ];

@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['n_5fcols_0',['n_cols',['../namespace_data___parse.html#ab758fccc50520d10974543ef3b6f9d2c',1,'Data_Parse']]],
-  ['n_5fpeople_1',['n_people',['../namespace_data___parse.html#a033e9bec947ccc927f9075419d4d04d4',1,'Data_Parse']]],
-  ['n_5frows_2',['n_rows',['../namespace_data___parse.html#a2528b80a3f05f39908e516a718d70d73',1,'Data_Parse']]]
+  ['figsize_0',['figsize',['../namespace_data___parse.html#a653a2bcf42ab54d256da723905d8ddd0',1,'Data_Parse']]],
+  ['file_5fpath_1',['file_path',['../class_graph___dataset_1_1_graph_dataset.html#a27ed081e64e21dc97c1cfecce47385d9',1,'Graph_Dataset::GraphDataset']]],
+  ['fontsize_2',['fontsize',['../namespace_data___parse.html#a368a089cca51dde67f57db7e77da33be',1,'Data_Parse']]]
 ];
