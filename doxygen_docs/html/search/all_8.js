@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['learning_5frate_0',['learning_rate',['../namespacebigram_1_1_bigram.html#a0f81b7cfe2733e118b9f0ea3dac4f9f2',1,'bigram::Bigram']]],
-  ['load_5fgraphs_1',['load_graphs',['../class_graph___dataset_1_1_graph_dataset.html#a43ee3208565d333100b8c270d9921ab5',1,'Graph_Dataset::GraphDataset']]]
+  ['head_5fsize_0',['head_size',['../namespacetensor__prac_1_1_self___attention.html#aab8b07398be6af6a91dd23d784f9ee47',1,'tensor_prac::Self_Attention']]]
 ];

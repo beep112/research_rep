@@ -10,5 +10,6 @@ var namespacebigram_1_1_bigram =
     [ "eval_interval", "namespacebigram_1_1_bigram.html#a1e4abdcf7d92c6887579eed510387f94", null ],
     [ "eval_iters", "namespacebigram_1_1_bigram.html#a2d72b7c231207cf43b170578aa3bf6e0", null ],
     [ "learning_rate", "namespacebigram_1_1_bigram.html#a0f81b7cfe2733e118b9f0ea3dac4f9f2", null ],
-    [ "max_iters", "namespacebigram_1_1_bigram.html#a0ee1b0a93258b7f1202db608d9972134", null ]
+    [ "max_iters", "namespacebigram_1_1_bigram.html#a0ee1b0a93258b7f1202db608d9972134", null ],
+    [ "n_embd", "namespacebigram_1_1_bigram.html#a1373aa309601b0d1b3428453ed682386", null ]
 ];

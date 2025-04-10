@@ -130,12 +130,16 @@ Public Member Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
-<tr class="memitem:ab1b7c227630296407b33f0beefa2bbae" id="r_ab1b7c227630296407b33f0beefa2bbae"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab1b7c227630296407b33f0beefa2bbae">token_embedding_table</a> = nn.Embedding(vocab_size, vocab_size)</td></tr>
+<tr class="memitem:ab1b7c227630296407b33f0beefa2bbae" id="r_ab1b7c227630296407b33f0beefa2bbae"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab1b7c227630296407b33f0beefa2bbae">token_embedding_table</a> = nn.Embedding(vocab_size, <a class="el" href="namespacebigram_1_1_bigram.html#a1373aa309601b0d1b3428453ed682386">n_embd</a>)</td></tr>
 <tr class="separator:ab1b7c227630296407b33f0beefa2bbae"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3dfea7b810b34498eaec72d768543b17" id="r_a3dfea7b810b34498eaec72d768543b17"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a3dfea7b810b34498eaec72d768543b17">position_embedding_table</a> = nn.Embedding(<a class="el" href="namespacebigram_1_1_bigram.html#abca86d02e81772abf267fe6c3a0b72cb">block_size</a>, <a class="el" href="namespacebigram_1_1_bigram.html#a1373aa309601b0d1b3428453ed682386">n_embd</a>)</td></tr>
+<tr class="separator:a3dfea7b810b34498eaec72d768543b17"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7ceeb7dad1c67dee12c8aa68b112ef91" id="r_a7ceeb7dad1c67dee12c8aa68b112ef91"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7ceeb7dad1c67dee12c8aa68b112ef91">lm_head</a> = nn.Linear(<a class="el" href="namespacebigram_1_1_bigram.html#a1373aa309601b0d1b3428453ed682386">n_embd</a>, vocab_size)</td></tr>
+<tr class="separator:a7ceeb7dad1c67dee12c8aa68b112ef91"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock">
-<p class="definition">Definition at line <a class="el" href="_bigram_8py_source.html#l00151">151</a> of file <a class="el" href="_bigram_8py_source.html">Bigram.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_bigram_8py_source.html#l00152">152</a> of file <a class="el" href="_bigram_8py_source.html">Bigram.py</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="ac627bc8ce36c2bf6f604a903f0ccc09c" name="ac627bc8ce36c2bf6f604a903f0ccc09c"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ac627bc8ce36c2bf6f604a903f0ccc09c">&#9670;&#160;</a></span>__init__()</h2>
@@ -166,24 +170,26 @@ Public Attributes</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>new <a class="el" href="classbigram_1_1_bigram_1_1_bigram_language_model.html">BigramLanguageModel</a> </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="_bigram_8py_source.html#l00153">153</a> of file <a class="el" href="_bigram_8py_source.html">Bigram.py</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  153</span>    <span class="keyword">def </span>__init__(self, vocab_size):</div>
-<div class="line"><span class="lineno">  154</span>        <span class="stringliteral">&quot;&quot;&quot;</span></div>
-<div class="line"><span class="lineno">  155</span><span class="stringliteral">        @brief constructor for BigramLanguageModel that calls super, and then</span></div>
-<div class="line"><span class="lineno">  156</span><span class="stringliteral">        creates a new embedding table of vocab_size by vocab_size</span></div>
-<div class="line"><span class="lineno">  157</span><span class="stringliteral"></span> </div>
-<div class="line"><span class="lineno">  158</span><span class="stringliteral">        @param self: the current BigramLanguageModel object</span></div>
-<div class="line"><span class="lineno">  159</span><span class="stringliteral">        @param vocab_size: the length of the vocab_size</span></div>
-<div class="line"><span class="lineno">  160</span><span class="stringliteral">        @return new BigramLanguageModel</span></div>
-<div class="line"><span class="lineno">  161</span><span class="stringliteral">        &quot;&quot;&quot;</span></div>
-<div class="line"><span class="lineno">  162</span>        super().__init__()</div>
-<div class="line"><span class="lineno">  163</span>        <span class="comment"># each token directly reads off the logits for hte next token from a tookup table</span></div>
-<div class="line"><span class="lineno">  164</span>        self.token_embedding_table = nn.Embedding(vocab_size, vocab_size)</div>
-<div class="line"><span class="lineno">  165</span> </div>
+<p class="definition">Definition at line <a class="el" href="_bigram_8py_source.html#l00154">154</a> of file <a class="el" href="_bigram_8py_source.html">Bigram.py</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  154</span>    <span class="keyword">def </span>__init__(self, vocab_size):</div>
+<div class="line"><span class="lineno">  155</span>        <span class="stringliteral">&quot;&quot;&quot;</span></div>
+<div class="line"><span class="lineno">  156</span><span class="stringliteral">        @brief constructor for BigramLanguageModel that calls super, and then</span></div>
+<div class="line"><span class="lineno">  157</span><span class="stringliteral">        creates a new embedding table of vocab_size by vocab_size</span></div>
+<div class="line"><span class="lineno">  158</span><span class="stringliteral"></span> </div>
+<div class="line"><span class="lineno">  159</span><span class="stringliteral">        @param self: the current BigramLanguageModel object</span></div>
+<div class="line"><span class="lineno">  160</span><span class="stringliteral">        @param vocab_size: the length of the vocab_size</span></div>
+<div class="line"><span class="lineno">  161</span><span class="stringliteral">        @return new BigramLanguageModel</span></div>
+<div class="line"><span class="lineno">  162</span><span class="stringliteral">        &quot;&quot;&quot;</span></div>
+<div class="line"><span class="lineno">  163</span>        super().__init__()</div>
+<div class="line"><span class="lineno">  164</span>        <span class="comment"># each token directly reads off the logits for hte next token from a tookup table</span></div>
+<div class="line"><span class="lineno">  165</span>        self.token_embedding_table = nn.Embedding(vocab_size, n_embd)</div>
+<div class="line"><span class="lineno">  166</span>        self.position_embedding_table = nn.Embedding(block_size, n_embd)</div>
+<div class="line"><span class="lineno">  167</span>        self.lm_head = nn.Linear(n_embd, vocab_size)</div>
+<div class="line"><span class="lineno">  168</span> </div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="_bigram_8py_source.html#l00153">__init__()</a>.</p>
+<p class="reference">References <a class="el" href="_bigram_8py_source.html#l00154">__init__()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="_bigram_8py_source.html#l00153">__init__()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="_bigram_8py_source.html#l00154">__init__()</a>.</p>
 
 </div>
 </div>
@@ -223,36 +229,37 @@ Public Attributes</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>logits, loss: Tuple(logits, loss), which are the logits, and the loss under cross_entropy </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="_bigram_8py_source.html#l00166">166</a> of file <a class="el" href="_bigram_8py_source.html">Bigram.py</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  166</span>    <span class="keyword">def </span>forward(self, idx, targets=None):</div>
-<div class="line"><span class="lineno">  167</span>        <span class="stringliteral">&quot;&quot;&quot;</span></div>
-<div class="line"><span class="lineno">  168</span><span class="stringliteral">        @brief goes &quot;ahead&quot; by getting our next set of logits and then returns</span></div>
-<div class="line"><span class="lineno">  169</span><span class="stringliteral">        the logits and loss</span></div>
-<div class="line"><span class="lineno">  170</span><span class="stringliteral"></span> </div>
-<div class="line"><span class="lineno">  171</span><span class="stringliteral">        @param self: the current BigramLanguageModel object</span></div>
-<div class="line"><span class="lineno">  172</span><span class="stringliteral">        @param idx: the current context batch</span></div>
-<div class="line"><span class="lineno">  173</span><span class="stringliteral">        @param targets: the tokens that are actually next</span></div>
-<div class="line"><span class="lineno">  174</span><span class="stringliteral">        @return logits, loss: Tuple(logits, loss), which are the logits, and</span></div>
-<div class="line"><span class="lineno">  175</span><span class="stringliteral">        the loss under cross_entropy</span></div>
-<div class="line"><span class="lineno">  176</span><span class="stringliteral">        &quot;&quot;&quot;</span></div>
-<div class="line"><span class="lineno">  177</span> </div>
-<div class="line"><span class="lineno">  178</span>        <span class="comment"># idx and targets are both (B, T) tensor of integers</span></div>
-<div class="line"><span class="lineno">  179</span>        logits = self.token_embedding_table(idx)  <span class="comment"># (B, T, C)</span></div>
+<p class="definition">Definition at line <a class="el" href="_bigram_8py_source.html#l00169">169</a> of file <a class="el" href="_bigram_8py_source.html">Bigram.py</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  169</span>    <span class="keyword">def </span>forward(self, idx, targets=None):</div>
+<div class="line"><span class="lineno">  170</span>        <span class="stringliteral">&quot;&quot;&quot;</span></div>
+<div class="line"><span class="lineno">  171</span><span class="stringliteral">        @brief goes &quot;ahead&quot; by getting our next set of logits and then returns</span></div>
+<div class="line"><span class="lineno">  172</span><span class="stringliteral">        the logits and loss</span></div>
+<div class="line"><span class="lineno">  173</span><span class="stringliteral"></span> </div>
+<div class="line"><span class="lineno">  174</span><span class="stringliteral">        @param self: the current BigramLanguageModel object</span></div>
+<div class="line"><span class="lineno">  175</span><span class="stringliteral">        @param idx: the current context batch</span></div>
+<div class="line"><span class="lineno">  176</span><span class="stringliteral">        @param targets: the tokens that are actually next</span></div>
+<div class="line"><span class="lineno">  177</span><span class="stringliteral">        @return logits, loss: Tuple(logits, loss), which are the logits, and</span></div>
+<div class="line"><span class="lineno">  178</span><span class="stringliteral">        the loss under cross_entropy</span></div>
+<div class="line"><span class="lineno">  179</span><span class="stringliteral">        &quot;&quot;&quot;</span></div>
 <div class="line"><span class="lineno">  180</span> </div>
-<div class="line"><span class="lineno">  181</span>        <span class="comment"># negative log likelyhood loss (cross-entropy) how close are logits</span></div>
-<div class="line"><span class="lineno">  182</span>        <span class="comment"># to target</span></div>
-<div class="line"><span class="lineno">  183</span>        <span class="keywordflow">if</span> targets == <span class="keywordtype">None</span>:</div>
-<div class="line"><span class="lineno">  184</span>            loss = <span class="keywordtype">None</span></div>
-<div class="line"><span class="lineno">  185</span>        <span class="keywordflow">else</span>:</div>
-<div class="line"><span class="lineno">  186</span>            B, T, C = logits.shape</div>
-<div class="line"><span class="lineno">  187</span>            logits = logits.view(B * T, C)</div>
-<div class="line"><span class="lineno">  188</span>            targets = targets.view(B * T)</div>
-<div class="line"><span class="lineno">  189</span>            loss = F.cross_entropy(logits, targets)</div>
-<div class="line"><span class="lineno">  190</span> </div>
-<div class="line"><span class="lineno">  191</span>        <span class="keywordflow">return</span> logits, loss</div>
-<div class="line"><span class="lineno">  192</span> </div>
+<div class="line"><span class="lineno">  181</span>        <span class="comment"># idx and targets are both (B, T) tensor of integers</span></div>
+<div class="line"><span class="lineno">  182</span>        tok_emb = self.token_embedding_table(idx)  <span class="comment"># (B, T, C)</span></div>
+<div class="line"><span class="lineno">  183</span>        logits = self.lm_head(tok_emb)  <span class="comment"># (B, T, vocab_size)</span></div>
+<div class="line"><span class="lineno">  184</span> </div>
+<div class="line"><span class="lineno">  185</span>        <span class="comment"># negative log likelyhood loss (cross-entropy) how close are logits</span></div>
+<div class="line"><span class="lineno">  186</span>        <span class="comment"># to target</span></div>
+<div class="line"><span class="lineno">  187</span>        <span class="keywordflow">if</span> targets == <span class="keywordtype">None</span>:</div>
+<div class="line"><span class="lineno">  188</span>            loss = <span class="keywordtype">None</span></div>
+<div class="line"><span class="lineno">  189</span>        <span class="keywordflow">else</span>:</div>
+<div class="line"><span class="lineno">  190</span>            B, T, C = logits.shape</div>
+<div class="line"><span class="lineno">  191</span>            logits = logits.view(B * T, C)</div>
+<div class="line"><span class="lineno">  192</span>            targets = targets.view(B * T)</div>
+<div class="line"><span class="lineno">  193</span>            loss = F.cross_entropy(logits, targets)</div>
+<div class="line"><span class="lineno">  194</span> </div>
+<div class="line"><span class="lineno">  195</span>        <span class="keywordflow">return</span> logits, loss</div>
+<div class="line"><span class="lineno">  196</span> </div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="_bigram_8py_source.html#l00164">token_embedding_table</a>.</p>
+<p class="reference">References <a class="el" href="_bigram_8py_source.html#l00167">lm_head</a>, and <a class="el" href="_bigram_8py_source.html#l00165">token_embedding_table</a>.</p>
 
 </div>
 </div>
@@ -292,44 +299,78 @@ Public Attributes</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>idx: modified idx with the new generated tokens appended </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="_bigram_8py_source.html#l00193">193</a> of file <a class="el" href="_bigram_8py_source.html">Bigram.py</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  193</span>    <span class="keyword">def </span>generate(self, idx, max_new_tokens):</div>
-<div class="line"><span class="lineno">  194</span>        <span class="stringliteral">&quot;&quot;&quot;</span></div>
-<div class="line"><span class="lineno">  195</span><span class="stringliteral">        @brief this is the generator of the bigram model, where the model creates tokens</span></div>
-<div class="line"><span class="lineno">  196</span><span class="stringliteral"></span> </div>
-<div class="line"><span class="lineno">  197</span><span class="stringliteral">        Idx is the current context of characters in the current batch. And we</span></div>
-<div class="line"><span class="lineno">  198</span><span class="stringliteral">        expent all the B dimension in the T dimension. What is predicted along</span></div>
-<div class="line"><span class="lineno">  199</span><span class="stringliteral">        the T dimension.</span></div>
-<div class="line"><span class="lineno">  200</span><span class="stringliteral">        We take the current idx, focus on the last element in the T dimension.</span></div>
-<div class="line"><span class="lineno">  201</span><span class="stringliteral">        These are then converted to probabilities using softmax, and the sampled</span></div>
-<div class="line"><span class="lineno">  202</span><span class="stringliteral">        using multinomial. We then take the sampled integers, and concat them</span></div>
-<div class="line"><span class="lineno">  203</span><span class="stringliteral"></span> </div>
-<div class="line"><span class="lineno">  204</span><span class="stringliteral">        @param self: the current BigramLanguageModel object</span></div>
-<div class="line"><span class="lineno">  205</span><span class="stringliteral">        @param idx: the current context batch (which is dim(B by T))</span></div>
-<div class="line"><span class="lineno">  206</span><span class="stringliteral">        @param max_new_tokens: the amount of new tokens we want to generate</span></div>
-<div class="line"><span class="lineno">  207</span><span class="stringliteral">        @return idx: modified idx with the new generated tokens appended</span></div>
-<div class="line"><span class="lineno">  208</span><span class="stringliteral">        &quot;&quot;&quot;</span></div>
-<div class="line"><span class="lineno">  209</span>        <span class="comment"># idx is (B, T) array of incixes in the current context</span></div>
-<div class="line"><span class="lineno">  210</span>        <span class="keywordflow">for</span> _ <span class="keywordflow">in</span> range(max_new_tokens):</div>
-<div class="line"><span class="lineno">  211</span>            <span class="comment"># get the predictions</span></div>
-<div class="line"><span class="lineno">  212</span>            logits, loss = self(idx)</div>
-<div class="line"><span class="lineno">  213</span>            <span class="comment"># focus only on the last time step</span></div>
-<div class="line"><span class="lineno">  214</span>            logits = logits[:, -1, :]  <span class="comment"># now dim(B by C)</span></div>
-<div class="line"><span class="lineno">  215</span>            <span class="comment"># apply the softmax to get probabilities</span></div>
-<div class="line"><span class="lineno">  216</span>            probs = F.softmax(logits, dim=-1)  <span class="comment"># dim(B by C)</span></div>
-<div class="line"><span class="lineno">  217</span>            <span class="comment"># sample from the distribution</span></div>
-<div class="line"><span class="lineno">  218</span>            idx_next = torch.multinomial(probs, num_samples=1)  <span class="comment"># (B, 1)</span></div>
-<div class="line"><span class="lineno">  219</span>            <span class="comment"># append sampled index to the running sequence</span></div>
-<div class="line"><span class="lineno">  220</span>            idx = torch.cat((idx, idx_next), dim=1)  <span class="comment"># dim(B by T-1)</span></div>
-<div class="line"><span class="lineno">  221</span>        <span class="keywordflow">return</span> idx</div>
-<div class="line"><span class="lineno">  222</span> </div>
-<div class="line"><span class="lineno">  223</span> </div>
+<p class="definition">Definition at line <a class="el" href="_bigram_8py_source.html#l00197">197</a> of file <a class="el" href="_bigram_8py_source.html">Bigram.py</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  197</span>    <span class="keyword">def </span>generate(self, idx, max_new_tokens):</div>
+<div class="line"><span class="lineno">  198</span>        <span class="stringliteral">&quot;&quot;&quot;</span></div>
+<div class="line"><span class="lineno">  199</span><span class="stringliteral">        @brief this is the generator of the bigram model, where the model creates tokens</span></div>
+<div class="line"><span class="lineno">  200</span><span class="stringliteral"></span> </div>
+<div class="line"><span class="lineno">  201</span><span class="stringliteral">        Idx is the current context of characters in the current batch. And we</span></div>
+<div class="line"><span class="lineno">  202</span><span class="stringliteral">        expent all the B dimension in the T dimension. What is predicted along</span></div>
+<div class="line"><span class="lineno">  203</span><span class="stringliteral">        the T dimension.</span></div>
+<div class="line"><span class="lineno">  204</span><span class="stringliteral">        We take the current idx, focus on the last element in the T dimension.</span></div>
+<div class="line"><span class="lineno">  205</span><span class="stringliteral">        These are then converted to probabilities using softmax, and the sampled</span></div>
+<div class="line"><span class="lineno">  206</span><span class="stringliteral">        using multinomial. We then take the sampled integers, and concat them</span></div>
+<div class="line"><span class="lineno">  207</span><span class="stringliteral"></span> </div>
+<div class="line"><span class="lineno">  208</span><span class="stringliteral">        @param self: the current BigramLanguageModel object</span></div>
+<div class="line"><span class="lineno">  209</span><span class="stringliteral">        @param idx: the current context batch (which is dim(B by T))</span></div>
+<div class="line"><span class="lineno">  210</span><span class="stringliteral">        @param max_new_tokens: the amount of new tokens we want to generate</span></div>
+<div class="line"><span class="lineno">  211</span><span class="stringliteral">        @return idx: modified idx with the new generated tokens appended</span></div>
+<div class="line"><span class="lineno">  212</span><span class="stringliteral">        &quot;&quot;&quot;</span></div>
+<div class="line"><span class="lineno">  213</span>        <span class="comment"># idx is (B, T) array of incixes in the current context</span></div>
+<div class="line"><span class="lineno">  214</span>        <span class="keywordflow">for</span> _ <span class="keywordflow">in</span> range(max_new_tokens):</div>
+<div class="line"><span class="lineno">  215</span>            <span class="comment"># get the predictions</span></div>
+<div class="line"><span class="lineno">  216</span>            logits, loss = self(idx)</div>
+<div class="line"><span class="lineno">  217</span>            <span class="comment"># focus only on the last time step</span></div>
+<div class="line"><span class="lineno">  218</span>            logits = logits[:, -1, :]  <span class="comment"># now dim(B by C)</span></div>
+<div class="line"><span class="lineno">  219</span>            <span class="comment"># apply the softmax to get probabilities</span></div>
+<div class="line"><span class="lineno">  220</span>            probs = F.softmax(logits, dim=-1)  <span class="comment"># dim(B by C)</span></div>
+<div class="line"><span class="lineno">  221</span>            <span class="comment"># sample from the distribution</span></div>
+<div class="line"><span class="lineno">  222</span>            idx_next = torch.multinomial(probs, num_samples=1)  <span class="comment"># (B, 1)</span></div>
+<div class="line"><span class="lineno">  223</span>            <span class="comment"># append sampled index to the running sequence</span></div>
+<div class="line"><span class="lineno">  224</span>            idx = torch.cat((idx, idx_next), dim=1)  <span class="comment"># dim(B by T-1)</span></div>
+<div class="line"><span class="lineno">  225</span>        <span class="keywordflow">return</span> idx</div>
+<div class="line"><span class="lineno">  226</span> </div>
+<div class="line"><span class="lineno">  227</span> </div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="_bigram_8py_source.html#l00054">bigram.Bigram.main()</a>.</p>
+<p class="reference">References <a class="el" href="_bigram_8py_source.html#l00055">bigram.Bigram.main()</a>.</p>
 
 </div>
 </div>
 <h2 class="groupheader">Member Data Documentation</h2>
+<a id="a7ceeb7dad1c67dee12c8aa68b112ef91" name="a7ceeb7dad1c67dee12c8aa68b112ef91"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7ceeb7dad1c67dee12c8aa68b112ef91">&#9670;&#160;</a></span>lm_head</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bigram.Bigram.BigramLanguageModel.lm_head = nn.Linear(<a class="el" href="namespacebigram_1_1_bigram.html#a1373aa309601b0d1b3428453ed682386">n_embd</a>, vocab_size)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="_bigram_8py_source.html#l00167">167</a> of file <a class="el" href="_bigram_8py_source.html">Bigram.py</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="_bigram_8py_source.html#l00169">forward()</a>.</p>
+
+</div>
+</div>
+<a id="a3dfea7b810b34498eaec72d768543b17" name="a3dfea7b810b34498eaec72d768543b17"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3dfea7b810b34498eaec72d768543b17">&#9670;&#160;</a></span>position_embedding_table</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bigram.Bigram.BigramLanguageModel.position_embedding_table = nn.Embedding(<a class="el" href="namespacebigram_1_1_bigram.html#abca86d02e81772abf267fe6c3a0b72cb">block_size</a>, <a class="el" href="namespacebigram_1_1_bigram.html#a1373aa309601b0d1b3428453ed682386">n_embd</a>)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="_bigram_8py_source.html#l00166">166</a> of file <a class="el" href="_bigram_8py_source.html">Bigram.py</a>.</p>
+
+</div>
+</div>
 <a id="ab1b7c227630296407b33f0beefa2bbae" name="ab1b7c227630296407b33f0beefa2bbae"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ab1b7c227630296407b33f0beefa2bbae">&#9670;&#160;</a></span>token_embedding_table</h2>
 
@@ -337,14 +378,14 @@ Public Attributes</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">bigram.Bigram.BigramLanguageModel.token_embedding_table = nn.Embedding(vocab_size, vocab_size)</td>
+          <td class="memname">bigram.Bigram.BigramLanguageModel.token_embedding_table = nn.Embedding(vocab_size, <a class="el" href="namespacebigram_1_1_bigram.html#a1373aa309601b0d1b3428453ed682386">n_embd</a>)</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_bigram_8py_source.html#l00164">164</a> of file <a class="el" href="_bigram_8py_source.html">Bigram.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_bigram_8py_source.html#l00165">165</a> of file <a class="el" href="_bigram_8py_source.html">Bigram.py</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="_bigram_8py_source.html#l00166">forward()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="_bigram_8py_source.html#l00169">forward()</a>.</p>
 
 </div>
 </div>

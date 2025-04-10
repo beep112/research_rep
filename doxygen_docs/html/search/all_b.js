@@ -1,8 +1,6 @@
 var searchData=
 [
-  ['people_0',['people',['../namespace_data___parse.html#a9b7084d9dbeefe6db1bfd322c386897d',1,'Data_Parse']]],
-  ['presence_5farray_1',['presence_array',['../namespace_data___parse.html#a769d4e30f30fba9bddbc9812e451ba6f',1,'Data_Parse']]],
-  ['presence_5fdata_2',['presence_data',['../namespace_data___parse.html#ad944d0bb7c9008423f2d3e7af2e57812',1,'Data_Parse']]],
-  ['print_5fblock_5fsize_3',['print_block_size',['../namespacetensor__prac_1_1_tensor___prac.html#aee8747bb0b88f4cbcb87f54134eea0d5',1,'tensor_prac::Tensor_Prac']]],
-  ['print_5ftraining_5fbatch_4',['print_training_batch',['../namespacetensor__prac_1_1_tensor___prac.html#a281a9fcc00d2a9b2dbccd3251d047295',1,'tensor_prac::Tensor_Prac']]]
+  ['learning_5frate_0',['learning_rate',['../namespacebigram_1_1_bigram.html#a0f81b7cfe2733e118b9f0ea3dac4f9f2',1,'bigram.Bigram.learning_rate'],['../namespacegpt.html#ac41bf5f53e982f4e73cca6cda31736f0',1,'gpt.learning_rate']]],
+  ['lm_5fhead_1',['lm_head',['../classbigram_1_1_bigram_1_1_bigram_language_model.html#a7ceeb7dad1c67dee12c8aa68b112ef91',1,'bigram::Bigram::BigramLanguageModel']]],
+  ['load_5fgraphs_2',['load_graphs',['../class_graph___dataset_1_1_graph_dataset.html#a43ee3208565d333100b8c270d9921ab5',1,'Graph_Dataset::GraphDataset']]]
 ];

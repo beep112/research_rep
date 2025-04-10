@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['max_5fiters_0',['max_iters',['../namespacebigram_1_1_bigram.html#a0ee1b0a93258b7f1202db608d9972134',1,'bigram::Bigram']]]
+  ['input_5fpath_0',['input_path',['../namespacegpt.html#a68e7f13dfa6c6a4ec0ee1da4e95518f6',1,'gpt']]],
+  ['itos_1',['itos',['../namespacegpt.html#a154abcbf0d5f5ae2c44e148eadcd63d9',1,'gpt']]]
 ];

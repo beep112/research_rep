@@ -13,7 +13,7 @@ import tensor_prac.Tensor_Prac as tp
 # hyperparameters (used to set things about the model)
 batch_size = 256
 block_size = 8
-max_iters = 1000000
+max_iters = 100000
 eval_interval = 100
 learning_rate = 1e-2
 # check for mps which is Apple's Metal Performance Shaders which
@@ -32,6 +32,7 @@ else:
 device = "cpu"
 print(f"Using device: {device}")
 eval_iters = 200
+n_embd = 32
 
 """
 @file Bigram.py
@@ -161,7 +162,9 @@ class BigramLanguageModel(nn.Module):
         """
         super().__init__()
         # each token directly reads off the logits for hte next token from a tookup table
-        self.token_embedding_table = nn.Embedding(vocab_size, vocab_size)
+        self.token_embedding_table = nn.Embedding(vocab_size, n_embd)
+        self.position_embedding_table = nn.Embedding(block_size, n_embd)
+        self.lm_head = nn.Linear(n_embd, vocab_size)
 
     def forward(self, idx, targets=None):
         """
@@ -176,7 +179,8 @@ class BigramLanguageModel(nn.Module):
         """
 
         # idx and targets are both (B, T) tensor of integers
-        logits = self.token_embedding_table(idx)  # (B, T, C)
+        tok_emb = self.token_embedding_table(idx)  # (B, T, C)
+        logits = self.lm_head(tok_emb)  # (B, T, vocab_size)
 
         # negative log likelyhood loss (cross-entropy) how close are logits
         # to target

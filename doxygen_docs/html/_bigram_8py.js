@@ -10,5 +10,6 @@ var _bigram_8py =
     [ "bigram.Bigram.eval_interval", "namespacebigram_1_1_bigram.html#a1e4abdcf7d92c6887579eed510387f94", null ],
     [ "bigram.Bigram.eval_iters", "namespacebigram_1_1_bigram.html#a2d72b7c231207cf43b170578aa3bf6e0", null ],
     [ "bigram.Bigram.learning_rate", "namespacebigram_1_1_bigram.html#a0f81b7cfe2733e118b9f0ea3dac4f9f2", null ],
-    [ "bigram.Bigram.max_iters", "namespacebigram_1_1_bigram.html#a0ee1b0a93258b7f1202db608d9972134", null ]
+    [ "bigram.Bigram.max_iters", "namespacebigram_1_1_bigram.html#a0ee1b0a93258b7f1202db608d9972134", null ],
+    [ "bigram.Bigram.n_embd", "namespacebigram_1_1_bigram.html#a1373aa309601b0d1b3428453ed682386", null ]
 ];
