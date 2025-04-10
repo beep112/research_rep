@@ -1,6 +1,8 @@
 var namespacebigram_1_1_bigram =
 [
     [ "BigramLanguageModel", "classbigram_1_1_bigram_1_1_bigram_language_model.html", "classbigram_1_1_bigram_1_1_bigram_language_model" ],
+    [ "estimate_loss", "namespacebigram_1_1_bigram.html#a348dfc6d47ec7127be26c7988c4d18b4", null ],
+    [ "get_batch", "namespacebigram_1_1_bigram.html#adedd034ff92c27cb5f85cf0c69848522", null ],
     [ "main", "namespacebigram_1_1_bigram.html#a848b4b62babc54148cb819f44886ba74", null ],
     [ "batch_size", "namespacebigram_1_1_bigram.html#aad4fcfafd7e263d71dbfe38028064b9b", null ],
     [ "block_size", "namespacebigram_1_1_bigram.html#abca86d02e81772abf267fe6c3a0b72cb", null ],

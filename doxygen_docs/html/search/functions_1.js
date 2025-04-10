@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['forward_0',['forward',['../classbigram_1_1_bigram_1_1_bigram_language_model.html#a435f88e2ac188b716c6f2d7e9671b1cc',1,'bigram::Bigram::BigramLanguageModel']]]
+  ['estimate_5floss_0',['estimate_loss',['../namespacebigram_1_1_bigram.html#a348dfc6d47ec7127be26c7988c4d18b4',1,'bigram::Bigram']]]
 ];
