@@ -8,17 +8,29 @@ import torch
 import torch.nn as nn
 from torch.nn import functional as F
 
-torch.manual_seed(1337)
-
 import tensor_prac.Tensor_Prac as tp
 
-# hyperparamer
-batch_size = 32
+# hyperparameters (used to set things about the model)
+batch_size = 256
 block_size = 8
-max_iters = 100000
+max_iters = 1000000
 eval_interval = 100
 learning_rate = 1e-2
-device = "cuda" if torch.cuda.is_available() else "cpu"
+# check for mps which is Apple's Metal Performance Shaders which
+# has a backend in pytorch this should allow the GPU for M-series macs to be
+# used
+"""
+if torch.backends.mps.is_available() and torch.backends.mps.is_built():
+    device = "mps"
+# check for cuda which should be used because obviously
+elif torch.cuda.is_available():
+    device = "cuda"
+# if now GPU (AMD excluded right now) then just use the CPU
+else:
+"""
+
+device = "cpu"
+print(f"Using device: {device}")
 eval_iters = 200
 
 """
@@ -40,12 +52,12 @@ we add more context than this?
 
 
 def main():
+    torch.manual_seed(1337)
     input_path = os.path.abspath(
         os.path.join(os.path.dirname(__file__), "..", "input.txt")
     )
     with open(input_path, "r", encoding="utf-8") as f:
         text = f.read()
-
     chars = sorted(list(set(text)))
     vocab_size = len(chars)
 
@@ -61,39 +73,79 @@ def main():
     data = torch.tensor(encode(text), dtype=torch.long)
 
     train_data, val_data = tp.train_val_split(data)
-    batch_size = 4
-    block_size = 8
-    input, targs = tp.get_batch(batch_size, block_size, "train", train_data, val_data)
+    input, targs = get_batch("train", train_data, val_data)
 
-    m = BigramLanguageModel(vocab_size)
-    logits, loss = m(input, targs)
+    model = BigramLanguageModel(vocab_size)
+    # IMPORTANT: Need to load to something like a GPU using .to(device) on the model
+    m = model.to(device)
 
-    print(logits.shape)
-    print(loss)
-
-    idx = torch.zeros((1, 1), dtype=torch.long)
+    context = torch.zeros((1, 1), dtype=torch.long, device=device)
     # before training the model generating tokens will split out complete
     # nonsense since the weights are random
-    print("Before training: 100 generated tokens")
-    print(decode(m.generate(idx, max_new_tokens=eval_interval)[0].tolist()))
+    print("Before training 100 generated tokens")
+    print(decode(m.generate(context, max_new_tokens=1000)[0].tolist()))
 
     # TRAINING WORK
     print("Training loss values")
-    optimizer = torch.optim.AdamW(m.parameters(), lr=1e-3)
-    batch_size = 32
+    optimizer = torch.optim.AdamW(model.parameters(), lr=learning_rate)
     for step in range(max_iters):
-        input, targs = tp.get_batch(
-            batch_size, block_size, "train", train_data, val_data
-        )
-        logits, loss = m(input, targs)
+
+        # every so often need to evaluate the loss and train data set
+        if step % eval_interval == 0:
+            losses = estimate_loss(model, train_data, val_data)
+            print(
+                f"step {step}: train loss {losses['train']:.4f}, val loss{losses['val']:.4f}"
+            )
+
+        # sample batch of data
+        input, targs = get_batch("train", train_data, val_data)
+
+        # evaluate the loss
+        logits, loss = model(input, targs)
         optimizer.zero_grad(set_to_none=True)
         loss.backward()
         optimizer.step()
-        if step % 10000 == 0:
-            print(loss.item())
 
-    print("After training: 100 generated tokens")
-    print(decode(m.generate(idx, max_new_tokens=eval_interval)[0].tolist()))
+    print("After training 100 generated tokens")
+    print(decode(m.generate(context, max_new_tokens=1000)[0].tolist()))
+
+
+def get_batch(split, train_data, val_data):
+    """
+    @brief new version of get_batch that allows for model to be loaded to gpus
+
+    The previous version of get_batch in the Tensor_Prac doesn't have the ability
+    for the GPU to actualy be used, even if the device is present. So this new
+    version will take advantage of that hardware.
+
+    @param split: string either 'train' or 'val' which is used to pick data to batch with
+    @param train_data: the data that is split for training
+    @param val_data: the data that is split for validation
+    @return Tuple(Tensor of inputs, Tensor or targets)
+    """
+    # generate a small batch of data of inputs x and targets y
+    data = train_data if split == "train" else val_data
+    ix = torch.randint(len(data) - block_size, (batch_size,))
+    x = torch.stack([data[i : i + block_size] for i in ix])
+    y = torch.stack([data[i + 1 : i + block_size + 1] for i in ix])
+    # IMPORTANT: This is the part that is needed for the GPU
+    x, y = x.to(device), y.to(device)
+    return x, y
+
+
+@torch.no_grad()
+def estimate_loss(model, train_data, val_data):
+    out = {}
+    model.eval()
+    for split in ["train", "val"]:
+        losses = torch.zeros(eval_iters)
+        for k in range(eval_iters):
+            X, Y = get_batch(split, train_data, val_data)
+            logits, loss = model(X, Y)
+            losses[k] = loss.item()
+        out[split] = losses.mean()
+    model.train()
+    return out
 
 
 class BigramLanguageModel(nn.Module):
