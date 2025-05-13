@@ -52,7 +52,7 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "_bigram_8py.html",
-"namespaceworking__gpt.html#a2d7f8cbada8e08be485674ca3553552b"
+"namespacetensor__prac_1_1_tensor___prac.html#a00e42033ea9a26eb3b31bb62acca1bbf"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronization';

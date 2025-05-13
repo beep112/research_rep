@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['working_5fgpt_2epy_0',['working_gpt.py',['../working__gpt_8py.html',1,'']]]
+  ['tensor_5fprac_2epy_0',['Tensor_Prac.py',['../_tensor___prac_8py.html',1,'']]]
 ];

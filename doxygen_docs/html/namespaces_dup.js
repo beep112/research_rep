@@ -42,7 +42,15 @@ var namespaces_dup =
     ] ],
     [ "Graph_Dataset", "namespace_graph___dataset.html", "namespace_graph___dataset" ],
     [ "graph_utils", "namespacegraph__utils.html", "namespacegraph__utils" ],
+    [ "hra_testy", "namespacehra__testy.html", [
+      [ "count_hras_by_size", "namespacehra__testy.html#a19b9fac82e37704ca57f34e5ecfef071", null ],
+      [ "generate_hras_accurate", "namespacehra__testy.html#a13a606ed54f5fc17831123456e7f34be", null ],
+      [ "plot_hras", "namespacehra__testy.html#ab7a16dfea15904b06c2975704e3415b0", null ],
+      [ "data", "namespacehra__testy.html#a9807663d454ca18580c78dfa04c5b476", null ],
+      [ "results", "namespacehra__testy.html#a2d02eb9da32b39c0eea0b1c539d95c44", null ]
+    ] ],
     [ "load_dot_file", "namespaceload__dot__file.html", [
+      [ "direct_load_dot", "namespaceload__dot__file.html#adae66d28685df87e78e6f2416644ee82", null ],
       [ "load_and_display_dot_file", "namespaceload__dot__file.html#a964417a93bb5d744f5b5c35a679d4534", null ],
       [ "dot_file_path", "namespaceload__dot__file.html#ae1afea3a8b91d0d8efe24ccac63dd7a4", null ]
     ] ],

@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['data_0',['data',['../namespace_data___parse.html#a5112093ad029d803ce800b14aef4e015',1,'Data_Parse.data'],['../namespaceworking__gpt.html#a65719a8def64272f4b925b4164c78856',1,'working_gpt.data']]],
+  ['data_0',['data',['../namespace_data___parse.html#a5112093ad029d803ce800b14aef4e015',1,'Data_Parse.data'],['../namespaceworking__gpt.html#a65719a8def64272f4b925b4164c78856',1,'working_gpt.data'],['../namespacehra__testy.html#a9807663d454ca18580c78dfa04c5b476',1,'hra_testy.data']]],
   ['decode_1',['decode',['../namespacegpt.html#a797d5ddab6a09c782298c8a6076fc83b',1,'gpt.decode'],['../namespaceworking__gpt.html#af85d2524d40fe93c9994df5eca877ef9',1,'working_gpt.decode']]],
   ['device_2',['device',['../namespacebigram_1_1_bigram.html#ad8c2b2b00ed377f01749be66d6b0451d',1,'bigram.Bigram.device'],['../namespacegpt.html#a5048712192b6503fd921004d8f3445b1',1,'gpt.device'],['../namespaceworking__gpt.html#a95b465dd3d969fb90d08dc07ed3bb088',1,'working_gpt.device']]],
   ['df_3',['df',['../namespace_data___parse.html#a5e6b5bf13606a6bd6baaae58e1b0e5bf',1,'Data_Parse']]],

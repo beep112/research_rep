@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['print_5fblock_5fsize_0',['print_block_size',['../namespacetensor__prac_1_1_tensor___prac.html#aee8747bb0b88f4cbcb87f54134eea0d5',1,'tensor_prac::Tensor_Prac']]],
-  ['print_5ftraining_5fbatch_1',['print_training_batch',['../namespacetensor__prac_1_1_tensor___prac.html#a281a9fcc00d2a9b2dbccd3251d047295',1,'tensor_prac::Tensor_Prac']]]
+  ['main_0',['main',['../namespacebigram_1_1_bigram.html#a848b4b62babc54148cb819f44886ba74',1,'bigram.Bigram.main()'],['../namespacemain.html#a3140e9a5b6a71ffbf498198cfc471b88',1,'main.main()'],['../namespacetensor__prac_1_1_tensor___prac.html#a2e70ac6392d8f932fce031eb1f942d10',1,'tensor_prac.Tensor_Prac.main()']]]
 ];

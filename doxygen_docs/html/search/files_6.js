@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['self_5fattention_2epy_0',['Self_Attention.py',['../_self___attention_8py.html',1,'']]]
+  ['main_2epy_0',['main.py',['../main_8py.html',1,'']]]
 ];

@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['train_5fval_5fsplit_0',['train_val_split',['../namespacetensor__prac_1_1_tensor___prac.html#a00e42033ea9a26eb3b31bb62acca1bbf',1,'tensor_prac::Tensor_Prac']]]
+  ['save_5fto_5fdot_0',['save_to_dot',['../classgraph__utils_1_1_graph.html#a98425268a976bf64ba415e5ae9fc5459',1,'graph_utils::Graph']]]
 ];

@@ -4,6 +4,7 @@ import time
 
 import matplotlib.pyplot as plt
 import networkx as nx
+import numpy as np
 import pydot
 from IPython.display import Image, display
 
@@ -271,3 +272,66 @@ class Graph:
         @return list of predecessors from node
         """
         return list(self.graph.predecessors(node))
+
+    def get_adjacency_matrix(self, weight=None):
+        """
+        @brief return the adjacency matrix of the graph
+
+        @param weight: Edge data weight. If none, all adges have weight 1. If a
+                       string, the edge attribute. If a function, the value
+                       returned by the function is used
+        @return numpy array: the adjacency matrix of the graph. Rows and columns
+                             are ordred according to the node list obtained by
+                             self.get_nodes(). Non-existent edges are represented by zeroes
+        """
+        try:
+            adj_matrix = nx.to_numpy_array(
+                self.graph, nodelist=self.get_nodes(), weight=weight
+            )
+
+            return adj_matrix
+        except Exception as e:
+            print(f"Error generating adjacency matrix: {e}")
+            import traceback
+
+            traceback.print_exc()
+
+            # Fallback implementation if NetworkX's function fails
+            try:
+                # Manual implementation of adjacency matrix calculation
+                nodes = self.get_nodes()
+                n = len(nodes)
+
+                # Create a mapping from node names to indices
+                node_to_idx = {node: i for i, node in enumerate(nodes)}
+
+                # Initialize the adjacency matrix with zeros
+                adj_matrix = np.zeros((n, n))
+
+                # Fill in the adjacency matrix
+                for u, v, data in self.graph.edges(data=True):
+                    i, j = node_to_idx[u], node_to_idx[v]
+
+                    if weight is None:
+                        # Unweighted - use 1 for all edges
+                        adj_matrix[i, j] = 1
+                    elif callable(weight):
+                        # If weight is a function, apply it to the edge data
+                        adj_matrix[i, j] = weight(data)
+                    elif weight in data:
+                        # If weight is a string, use it as an edge attribute key
+                        adj_matrix[i, j] = float(data[weight])
+                    else:
+                        # If weight attribute doesn't exist, use 1
+                        adj_matrix[i, j] = 1
+
+                    # For undirected graphs, fill the symmetric entry
+                    if not nx.is_directed(self.graph):
+                        adj_matrix[j, i] = adj_matrix[i, j]
+
+                return adj_matrix
+
+            except Exception as e:
+                print(f"Fallback adjacency matrix calculation failed: {e}")
+                traceback.print_exc()
+                return None
