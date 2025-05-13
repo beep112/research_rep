@@ -41,5 +41,14 @@ var namespaces_dup =
       [ "vocab_size", "namespacegpt.html#a6c59388fd1f227ba75305069268e5cc9", null ]
     ] ],
     [ "Graph_Dataset", "namespace_graph___dataset.html", "namespace_graph___dataset" ],
-    [ "tensor_prac", "namespacetensor__prac.html", "namespacetensor__prac" ]
+    [ "graph_utils", "namespacegraph__utils.html", "namespacegraph__utils" ],
+    [ "load_dot_file", "namespaceload__dot__file.html", [
+      [ "load_and_display_dot_file", "namespaceload__dot__file.html#a964417a93bb5d744f5b5c35a679d4534", null ],
+      [ "dot_file_path", "namespaceload__dot__file.html#ae1afea3a8b91d0d8efe24ccac63dd7a4", null ]
+    ] ],
+    [ "main", "namespacemain.html", [
+      [ "main", "namespacemain.html#a3140e9a5b6a71ffbf498198cfc471b88", null ]
+    ] ],
+    [ "tensor_prac", "namespacetensor__prac.html", "namespacetensor__prac" ],
+    [ "working_gpt", "namespaceworking__gpt.html", "namespaceworking__gpt" ]
 ];

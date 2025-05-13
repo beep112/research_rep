@@ -1,0 +1,27 @@
+digraph G {
+    // graph attributes
+    rankdir=LR;
+    fontname="Helvetica";
+    fontsize=12;
+
+    // node attributes
+    node [fontname="Helvetica", fontsize=10, shape="circle", style="filled", fillcolor="lightblue"];
+    
+    // edge attributes
+    edge [fontname="Helvetica", fontsize=8]
+
+    A [label="Start", shape="box", fillcolor="lightgreen"];
+    B [label="Process Data"];
+    C [label="Validate"];
+    D [label="Decision", shape="diamond", fillcolor="lightyellow"];
+    E [label="Output", shape="parallelogram"];
+    F [label="End", shape="box", fillcolor="lightcoral"];
+    
+    // Edges
+    A -> B [label="initialize"];
+    B -> C [label="process"];
+    C -> D [label="check"];
+    D -> E [label="valid", color="green"];
+    D -> B [label="invalid", color="red", style="dashed"];
+    E -> F [label="complete"];
+}

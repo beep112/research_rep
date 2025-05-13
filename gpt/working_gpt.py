@@ -8,7 +8,16 @@ block_size = 256  # what is the maximum context length for predictions?
 max_iters = 5000
 eval_interval = 500
 learning_rate = 3e-4
-device = "cuda" if torch.cuda.is_available() else "cpu"
+# device = "cuda" if torch.cuda.is_available() else "cpu"
+if torch.backends.mps.is_available() and torch.backends.mps.is_built():
+    device = "mps"
+# check for cuda which should be used because obviously
+elif torch.cuda.is_available():
+    device = "cuda"
+# if now GPU (AMD excluded right now) then just use the CPU
+else:
+    device = "cpu"
+
 eval_iters = 200
 n_embd = 384
 n_head = 6

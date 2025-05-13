@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['k_0',['k',['../namespacetensor__prac_1_1_self___attention.html#a6f2273255efccccf406ace0c8eb6e68e',1,'tensor_prac::Self_Attention']]],
-  ['key_1',['key',['../namespacetensor__prac_1_1_self___attention.html#a280dbf2fcde82e2b7f9ae782232b8688',1,'tensor_prac::Self_Attention']]]
+  ['input_5fpath_0',['input_path',['../namespacegpt.html#a68e7f13dfa6c6a4ec0ee1da4e95518f6',1,'gpt']]],
+  ['itos_1',['itos',['../namespacegpt.html#a154abcbf0d5f5ae2c44e148eadcd63d9',1,'gpt.itos'],['../namespaceworking__gpt.html#aed8c42cd69d135d320ea8496f36917d7',1,'working_gpt.itos']]]
 ];

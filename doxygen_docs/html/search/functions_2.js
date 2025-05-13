@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['forward_0',['forward',['../classbigram_1_1_bigram_1_1_bigram_language_model.html#a435f88e2ac188b716c6f2d7e9671b1cc',1,'bigram::Bigram::BigramLanguageModel']]]
+  ['display_5fwith_5fgraphviz_0',['display_with_graphviz',['../classgraph__utils_1_1_graph.html#ae28255ee1f6a1956647d27251954e9be',1,'graph_utils::Graph']]],
+  ['display_5fwith_5fmatplotlib_1',['display_with_matplotlib',['../classgraph__utils_1_1_graph.html#a09e67992d92ff660729f5c7166c02208',1,'graph_utils::Graph']]]
 ];

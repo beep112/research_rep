@@ -1,7 +1,6 @@
 var searchData=
 [
-  ['b_0',['B',['../namespacetensor__prac_1_1_self___attention.html#a28853da511b21bbd2899d6c6fc427db1',1,'tensor_prac::Self_Attention']]],
-  ['b_1',['b',['../namespacetensor__prac_1_1_self___attention.html#a29e2a41b2c088825faa17597cd3aaf09',1,'tensor_prac::Self_Attention']]],
-  ['batch_5fsize_2',['batch_size',['../namespacebigram_1_1_bigram.html#aad4fcfafd7e263d71dbfe38028064b9b',1,'bigram.Bigram.batch_size'],['../namespacegpt.html#a474e0e8cdef129a472c2e936d457a355',1,'gpt.batch_size']]],
-  ['block_5fsize_3',['block_size',['../namespacebigram_1_1_bigram.html#abca86d02e81772abf267fe6c3a0b72cb',1,'bigram.Bigram.block_size'],['../namespacegpt.html#a2e93502ec8e63ab7677295a35c8b38b7',1,'gpt.block_size']]]
+  ['a_0',['a',['../namespacetensor__prac_1_1_self___attention.html#af226d1df0ecad691635e6f90b01eaadf',1,'tensor_prac::Self_Attention']]],
+  ['all_5fpresence_1',['all_presence',['../namespace_data___parse.html#a874d6048630a7ec19c1f0ef214399a84',1,'Data_Parse']]],
+  ['ax_2',['ax',['../namespace_data___parse.html#abffcc985646296c3a37f6d3b6c254a3a',1,'Data_Parse']]]
 ];

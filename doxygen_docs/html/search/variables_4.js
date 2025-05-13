@@ -1,7 +1,9 @@
 var searchData=
 [
-  ['encode_0',['encode',['../namespacegpt.html#aae00dd072a6d8baf535684b3202fd413',1,'gpt']]],
-  ['encoding_1',['encoding',['../namespacegpt.html#ad55365427e3de8c9e4b8b6086f79f383',1,'gpt']]],
-  ['eval_5finterval_2',['eval_interval',['../namespacebigram_1_1_bigram.html#a1e4abdcf7d92c6887579eed510387f94',1,'bigram.Bigram.eval_interval'],['../namespacegpt.html#a89629f8a274aabbf293ff12ffb2d3c12',1,'gpt.eval_interval']]],
-  ['eval_5fiters_3',['eval_iters',['../namespacebigram_1_1_bigram.html#a2d72b7c231207cf43b170578aa3bf6e0',1,'bigram.Bigram.eval_iters'],['../namespacegpt.html#a6fa02b33187f36fa7f3b38c00c100f9d',1,'gpt.eval_iters']]]
+  ['data_0',['data',['../namespace_data___parse.html#a5112093ad029d803ce800b14aef4e015',1,'Data_Parse.data'],['../namespaceworking__gpt.html#a65719a8def64272f4b925b4164c78856',1,'working_gpt.data']]],
+  ['decode_1',['decode',['../namespacegpt.html#a797d5ddab6a09c782298c8a6076fc83b',1,'gpt.decode'],['../namespaceworking__gpt.html#af85d2524d40fe93c9994df5eca877ef9',1,'working_gpt.decode']]],
+  ['device_2',['device',['../namespacebigram_1_1_bigram.html#ad8c2b2b00ed377f01749be66d6b0451d',1,'bigram.Bigram.device'],['../namespacegpt.html#a5048712192b6503fd921004d8f3445b1',1,'gpt.device'],['../namespaceworking__gpt.html#a95b465dd3d969fb90d08dc07ed3bb088',1,'working_gpt.device']]],
+  ['df_3',['df',['../namespace_data___parse.html#a5e6b5bf13606a6bd6baaae58e1b0e5bf',1,'Data_Parse']]],
+  ['dot_5ffile_5fpath_4',['dot_file_path',['../namespaceload__dot__file.html#ae1afea3a8b91d0d8efe24ccac63dd7a4',1,'load_dot_file']]],
+  ['dropout_5',['dropout',['../classworking__gpt_1_1_head.html#aba008c97dcdae1abdb3a1dd98d785a73',1,'working_gpt.Head.dropout'],['../classworking__gpt_1_1_multi_head_attention.html#a73a6f814bfe5418a8c9c141681ca0b26',1,'working_gpt.MultiHeadAttention.dropout'],['../namespacegpt.html#ab39233366c6fc5cca7ce720972406c05',1,'gpt.dropout'],['../namespaceworking__gpt.html#a1054502bbd7be932fb8819003e749f04',1,'working_gpt.dropout']]]
 ];

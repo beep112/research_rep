@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['graphdataset_0',['GraphDataset',['../class_graph___dataset_1_1_graph_dataset.html',1,'Graph_Dataset']]]
+  ['feedfoward_0',['FeedFoward',['../classworking__gpt_1_1_feed_foward.html',1,'working_gpt']]]
 ];

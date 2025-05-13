@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['stoi_0',['stoi',['../namespacegpt.html#a1999442b4a29fab8bf999ea62b3ad677',1,'gpt']]]
+  ['rotation_0',['rotation',['../namespace_data___parse.html#a35e1e51a225ec6c8368880c3c7625ba1',1,'Data_Parse']]]
 ];
