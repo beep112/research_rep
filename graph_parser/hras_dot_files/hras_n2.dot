@@ -1,0 +1,4 @@
+digraph HRA_n2_001 {
+  0 -> 1 [label="0"];
+  1 -> 0 [label="0"];
+}

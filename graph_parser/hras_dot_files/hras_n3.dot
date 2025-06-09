@@ -1,0 +1,195 @@
+digraph HRA_n3_001 {
+  0 -> 1 [label="0"];
+  0 -> 2 [label="0"];
+  1 -> 0 [label="0"];
+}
+
+digraph HRA_n3_002 {
+  0 -> 1 [label="0"];
+  1 -> 2 [label="0"];
+  2 -> 0 [label="0"];
+}
+
+digraph HRA_n3_003 {
+  0 -> 1 [label="0"];
+  0 -> 2 [label="0"];
+  1 -> 0 [label="0"];
+  1 -> 2 [label="0"];
+}
+
+digraph HRA_n3_004 {
+  0 -> 1 [label="0"];
+  0 -> 2 [label="1"];
+  1 -> 0 [label="0"];
+  1 -> 2 [label="0"];
+}
+
+digraph HRA_n3_005 {
+  0 -> 1 [label="0"];
+  0 -> 2 [label="0"];
+  1 -> 0 [label="0"];
+  2 -> 0 [label="0"];
+}
+
+digraph HRA_n3_006 {
+  0 -> 1 [label="0"];
+  0 -> 2 [label="0"];
+  1 -> 0 [label="1"];
+  2 -> 0 [label="0"];
+}
+
+digraph HRA_n3_007 {
+  0 -> 1 [label="0"];
+  0 -> 2 [label="0"];
+  1 -> 0 [label="0"];
+  2 -> 1 [label="0"];
+}
+
+digraph HRA_n3_008 {
+  0 -> 1 [label="1"];
+  0 -> 2 [label="0"];
+  1 -> 0 [label="0"];
+  2 -> 1 [label="0"];
+}
+
+digraph HRA_n3_009 {
+  0 -> 1 [label="0"];
+  0 -> 2 [label="0"];
+  1 -> 0 [label="0"];
+  2 -> 1 [label="1"];
+}
+
+digraph HRA_n3_010 {
+  0 -> 1 [label="0"];
+  0 -> 2 [label="0"];
+  1 -> 0 [label="0"];
+  1 -> 2 [label="0"];
+  2 -> 0 [label="0"];
+}
+
+digraph HRA_n3_011 {
+  0 -> 1 [label="0"];
+  0 -> 2 [label="1"];
+  1 -> 0 [label="0"];
+  1 -> 2 [label="0"];
+  2 -> 0 [label="0"];
+}
+
+digraph HRA_n3_012 {
+  0 -> 1 [label="0"];
+  0 -> 2 [label="0"];
+  1 -> 0 [label="1"];
+  1 -> 2 [label="0"];
+  2 -> 0 [label="0"];
+}
+
+digraph HRA_n3_013 {
+  0 -> 1 [label="0"];
+  0 -> 2 [label="1"];
+  1 -> 0 [label="1"];
+  1 -> 2 [label="0"];
+  2 -> 0 [label="0"];
+}
+
+digraph HRA_n3_014 {
+  0 -> 1 [label="0"];
+  0 -> 2 [label="0"];
+  1 -> 0 [label="0"];
+  1 -> 2 [label="1"];
+  2 -> 0 [label="0"];
+}
+
+digraph HRA_n3_015 {
+  0 -> 1 [label="0"];
+  0 -> 2 [label="0"];
+  1 -> 0 [label="1"];
+  1 -> 2 [label="1"];
+  2 -> 0 [label="0"];
+}
+
+digraph HRA_n3_016 {
+  0 -> 1 [label="0"];
+  0 -> 2 [label="0"];
+  1 -> 0 [label="0"];
+  1 -> 2 [label="0"];
+  2 -> 0 [label="1"];
+}
+
+digraph HRA_n3_017 {
+  0 -> 1 [label="0"];
+  0 -> 2 [label="1"];
+  1 -> 0 [label="0"];
+  1 -> 2 [label="0"];
+  2 -> 0 [label="1"];
+}
+
+digraph HRA_n3_018 {
+  0 -> 1 [label="0"];
+  0 -> 2 [label="0"];
+  1 -> 0 [label="0"];
+  1 -> 2 [label="1"];
+  2 -> 0 [label="1"];
+}
+
+digraph HRA_n3_019 {
+  0 -> 1 [label="0"];
+  0 -> 2 [label="0"];
+  1 -> 0 [label="0"];
+  1 -> 2 [label="0"];
+  2 -> 0 [label="0"];
+  2 -> 1 [label="0"];
+}
+
+digraph HRA_n3_020 {
+  0 -> 1 [label="1"];
+  0 -> 2 [label="0"];
+  1 -> 0 [label="0"];
+  1 -> 2 [label="0"];
+  2 -> 0 [label="0"];
+  2 -> 1 [label="0"];
+}
+
+digraph HRA_n3_021 {
+  0 -> 1 [label="1"];
+  0 -> 2 [label="1"];
+  1 -> 0 [label="0"];
+  1 -> 2 [label="0"];
+  2 -> 0 [label="0"];
+  2 -> 1 [label="0"];
+}
+
+digraph HRA_n3_022 {
+  0 -> 1 [label="1"];
+  0 -> 2 [label="0"];
+  1 -> 0 [label="1"];
+  1 -> 2 [label="0"];
+  2 -> 0 [label="0"];
+  2 -> 1 [label="0"];
+}
+
+digraph HRA_n3_023 {
+  0 -> 1 [label="0"];
+  0 -> 2 [label="1"];
+  1 -> 0 [label="1"];
+  1 -> 2 [label="0"];
+  2 -> 0 [label="0"];
+  2 -> 1 [label="0"];
+}
+
+digraph HRA_n3_024 {
+  0 -> 1 [label="1"];
+  0 -> 2 [label="1"];
+  1 -> 0 [label="1"];
+  1 -> 2 [label="0"];
+  2 -> 0 [label="0"];
+  2 -> 1 [label="0"];
+}
+
+digraph HRA_n3_025 {
+  0 -> 1 [label="1"];
+  0 -> 2 [label="0"];
+  1 -> 0 [label="0"];
+  1 -> 2 [label="1"];
+  2 -> 0 [label="1"];
+  2 -> 1 [label="0"];
+}

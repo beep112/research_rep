@@ -218,7 +218,7 @@ def count_hras_by_size():
     """Count HRAs for different entity sizes to verify against expected results"""
     results = []
 
-    for n in range(1, 5):  # Test for n=1,2,3,4
+    for n in range(1, 7):  # Test for n=1,2,3,4
         start_time = time.time()
         print(f"\nComputing for n={n}...")
 
@@ -269,5 +269,5 @@ if __name__ == "__main__":
     results = count_hras_by_size()
 
     # Optional: For n=3, plot the heritable architectures
-    data = generate_hras_accurate(4, verbose=False)
-    plot_hras(data["heritable"])
+    # data = generate_hras_accurate(5, verbose=False)
+    # plot_hras(data["heritable"])
