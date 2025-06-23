@@ -1,63 +1,53 @@
-# Makefile for HRA Generator
-
 CC = gcc
-CFLAGS = -O3 -march=native -Wall -Wextra -std=c99
-LDFLAGS = -lm
-TARGET = hra_test 
-SOURCE = hra_test.c
-HEADER = hra_test.h
+CFLAGS = -Wall -Wextra -O3 -std=c99 -D_GNU_SOURCE
+LDFLAGS = -lpthread -lm
+
+# Source files
+ORIGINAL_SOURCES = hra_test3.c
+SAMPLER_SOURCES = hra_sampler.c hra_runner.c
+HEADERS = hra_test3.h hra_sampler.h
+
+# Executables
+ORIGINAL_EXEC = hra_test3
+SAMPLER_EXEC = hra_runner
+EXPANDER_EXEC = hra_expander
 
 # Default target
-all: $(TARGET)
+all: $(ORIGINAL_EXEC) $(SAMPLER_EXEC) $(EXPANDER_EXEC)
 
-# Build the main executable
-$(TARGET): $(SOURCE) $(HEADER)
-	$(CC) $(CFLAGS) -o $(TARGET) $(SOURCE) $(LDFLAGS)
+# Original HRA generator (to create initial .dot files)
+$(ORIGINAL_EXEC): $(ORIGINAL_SOURCES) hra_test3.h
+	$(CC) $(CFLAGS) -o $@ $(ORIGINAL_SOURCES) $(LDFLAGS)
 
-# Optimized build for maximum performance
-optimized: CFLAGS += -funroll-loops -ffast-math -DNDEBUG
-optimized: $(TARGET)
+# Main runner program
+$(SAMPLER_EXEC): hra_runner.c hra_sampler.c hra_sampler.h
+	$(CC) $(CFLAGS) -o $@ hra_runner.c hra_sampler.c $(LDFLAGS)
 
-# Debug build
-debug: CFLAGS = -g -O0 -Wall -Wextra -std=c99 -DDEBUG
-debug: $(TARGET)
+# Graph expander subprocess (called by runner)
+$(EXPANDER_EXEC): hra_expander.c hra_sampler.c hra_sampler.h
+	$(CC) $(CFLAGS) -o $@ hra_expander.c hra_sampler.c $(LDFLAGS)
 
 # Clean build artifacts
 clean:
-	rm -f $(TARGET)
+	rm -f $(ORIGINAL_EXEC) $(SAMPLER_EXEC) $(EXPANDER_EXEC)
+	rm -rf hras_dot_files hra_evolution_results
+	rm -f *.o
 
-# Run the program
-run: $(TARGET)
-	./$(TARGET)
+# Create test data
+test-data: $(ORIGINAL_EXEC)
+	./$(ORIGINAL_EXEC) 3
 
-# Profile build (requires gprof)
-profile: CFLAGS += -pg
-profile: LDFLAGS += -pg
-profile: $(TARGET)
+# Run full pipeline
+run-pipeline: $(ORIGINAL_EXEC) $(SAMPLER_EXEC) $(EXPANDER_EXEC) test-data
+	./$(SAMPLER_EXEC) hras_dot_files/hras_n3.dot 4
 
-.PHONY: all optimized debug clean run profile
+# Install dependencies (Ubuntu/Debian)
+install-deps:
+	sudo apt-get update
+	sudo apt-get install build-essential
 
-# Usage instructions as comments:
-#
-# To compile and run:
-#   make && ./hra_generator
-#
-# For maximum performance:
-#   make optimized && ./hra_generator
-#
-# For debugging:
-#   make debug && gdb ./hra_generator
-#
-# To profile performance:
-#   make profile && ./hra_generator && gprof ./hra_generator gmon.out
-#
-# Expected performance improvements over Python:
-# - 10-50x faster for small n (n=1-4)
-# - 50-200x faster for larger n (n=5-6)
-# - Much lower memory usage
-# - Better cache efficiency
-#
-# Note: The C implementation focuses on the core algorithm.
-# Plotting functionality would require additional libraries like:
-# - matplotlib-cpp (C++ wrapper for matplotlib)
-# - or export data to file and plot with separate Python script
+# Debug version
+debug: CFLAGS += -g -DDEBUG
+debug: all
+
+.PHONY: all clean test-data run-pipeline install-deps debug
