@@ -177,8 +177,9 @@ int count_graphs_in_dot_file(const char *filename) {
 bool parse_single_dot_graph(FILE *fp, Graph *g, int *graph_id) {
   char line[MAX_LINE];
   bool in_graph = false;
-  int nodes = 0;
+  int max_node_id = -1; // Track the highest node ID seen
   init_graph(g, 0);
+
   while (fgets(line, sizeof(line), fp)) {
     if (!in_graph && strstr(line, "digraph")) {
       in_graph = true;
@@ -188,29 +189,35 @@ bool parse_single_dot_graph(FILE *fp, Graph *g, int *graph_id) {
       continue;
     }
     if (in_graph && strchr(line, '}')) {
-      g->n_nodes = nodes;
+      // Number of nodes is max_node_id + 1 (since nodes are 0-indexed)
+      g->n_nodes = max_node_id + 1;
       return true;
     }
     if (in_graph && strstr(line, "->")) {
       int f, t, r;
       if (sscanf(line, "%d -> %d [label=\"%d\"];", &f, &t, &r) == 3) {
         add_edge(g, f, t, r);
-        nodes = (nodes > f ? (nodes > t ? nodes : t) : (f > t ? f : t)) + 1;
+        // Update max_node_id to track the highest node ID
+        if (f > max_node_id)
+          max_node_id = f;
+        if (t > max_node_id)
+          max_node_id = t;
       }
     }
   }
   return false;
 }
-
 // Graph utilities
 void init_graph(Graph *g, int n) {
   g->n_nodes = n;
   g->n_edges = 0;
   memset(g->in_degree, 0, sizeof(g->in_degree));
   memset(g->out_degree, 0, sizeof(g->out_degree));
-  for (int i = 0; i < MAX_NODES; i++)
-    for (int j = 0; j < MAX_NODES; j++)
-      g->adj_matrix[i][j] = -1;
+  for (int i = 0; i < MAX_NODES; i++) {
+    for (int j = 0; j < MAX_NODES; j++) {
+      g->adj_matrix[i][j] = -1; // -1 means no edge
+    }
+  }
 }
 
 void add_edge(Graph *g, int from, int to, int regulation) {
