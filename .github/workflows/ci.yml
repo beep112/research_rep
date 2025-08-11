@@ -59,7 +59,13 @@ jobs:
       - name: Optional Tests (Windows)
         if: runner.os == 'Windows'
         run: |
-          if (Test-Path tests -PathType Container -or (Get-ChildItem -Filter 'test_*.py').Count -gt 0) { pytest -q } else { echo 'No tests found. Skipping.' }
+          $hasTestsDir = Test-Path -Path tests -PathType Container
+          $hasTestFiles = (Get-ChildItem -Path . -Filter 'test_*.py' -File -Recurse | Select-Object -First 1) -ne $null
+          if ($hasTestsDir -or $hasTestFiles) {
+            pytest -q
+          } else {
+            Write-Host 'No tests found. Skipping.'
+          }
 
       - name: Build (Linux/macOS)
         if: runner.os != 'Windows'
