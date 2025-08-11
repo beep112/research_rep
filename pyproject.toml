@@ -1,0 +1,13 @@
+[tool.black]
+line-length = 100
+
+[tool.ruff]
+line-length = 100
+exclude = [
+  "doxygen_docs",
+  "graph_parser/hra_evolution_results",
+]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B"]
+ignore = []

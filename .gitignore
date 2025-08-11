@@ -1,0 +1,24 @@
+# Build artifacts
+graph_parser/hra_runner
+graph_parser/hra_expander
+graph_parser/hra_test3
+
+# Object files
+graph_parser/*.o
+
+# Generated indexes
+graph_parser/hras_dot_files/index.json
+graph_parser/hra_evolution_results/index.json
+
+# Result graphs (consider committing a curated subset instead)
+# graph_parser/hra_evolution_results/
+
+# Backups
+graph_parser/hra_evolution_results_backup.zip
+
+# Python cache
+**/__pycache__/
+
+# VS Code and OS files
+.vscode/
+.DS_Store
