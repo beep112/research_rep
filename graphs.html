@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>HRA Graph Viewer</title>
+  <style>
+    body { font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif; margin: 0; }
+    header { background: #0b3d91; color: white; padding: 12px 16px; }
+    h1 { font-size: 18px; margin: 0; }
+    .tabs { display: flex; gap: 8px; background: #f3f4f6; padding: 8px 8px 0; }
+    .tab { padding: 8px 12px; cursor: pointer; border: 1px solid #e5e7eb; border-bottom: none; border-radius: 8px 8px 0 0; background: #e5e7eb; }
+    .tab.active { background: white; font-weight: 600; }
+    .panel { border-top: 1px solid #e5e7eb; display: none; }
+    .panel.active { display: block; }
+    .container { display: grid; grid-template-columns: 360px 1fr; height: calc(100vh - 96px); }
+    .sidebar { border-right: 1px solid #e5e7eb; overflow: auto; padding: 8px; }
+    .main { overflow: auto; padding: 8px; }
+    .search { width: 100%; padding: 8px; margin-bottom: 8px; }
+    ul { list-style: none; padding: 0; margin: 0; }
+    li { padding: 4px 6px; cursor: pointer; border-radius: 4px; }
+    li:hover { background: #f3f4f6; }
+    .path { color: #6b7280; font-size: 12px; }
+    .graph { border: 1px solid #e5e7eb; min-height: 480px; background: white; }
+    .loading { color: #6b7280; }
+    .error { color: #b91c1c; }
+  .controls { margin-bottom: 8px; display:flex; align-items:center; gap:12px; flex-wrap:wrap; }
+  .legend { display:flex; align-items:center; gap:12px; color:#374151; font-size:13px; }
+  .chip { display:inline-flex; align-items:center; gap:6px; padding:4px 8px; border:1px solid #e5e7eb; border-radius:999px; background:#f9fafb; }
+  .dot { width:12px; height:12px; border-radius:999px; display:inline-block; }
+  .line { width:20px; height:0; border-top:3px solid; display:inline-block; position:relative; }
+  .line.arrow::after { content:'>'; position:absolute; right:-6px; top:-8px; font-weight:bold; }
+  .line.tee::after { content:''; position:absolute; right:-2px; top:-6px; width:0; height:0; border-left:8px solid currentColor; border-top:6px solid transparent; border-bottom:6px solid transparent; transform: rotate(90deg); }
+  .toggle { display:inline-flex; gap:6px; align-items:center; cursor:pointer; user-select:none; }
+  .toggle input { accent-color:#0b3d91; }
+  </style>
+  <script src="https://cdn.jsdelivr.net/npm/viz.js@2.1.2/viz.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/viz.js@2.1.2/full.render.js"></script>
+</head>
+<body>
+  <header>
+    <h1>HRA Graph Viewer</h1>
+  </header>
+  <div class="tabs">
+    <div class="tab active" data-target="#tab-canonical">Canonical (hras_dot_files)</div>
+    <div class="tab" data-target="#tab-outputs">Outputs (hra_evolution_results)</div>
+  </div>
+  <div class="panel active" id="tab-canonical">
+    <div class="container">
+      <div class="sidebar">
+        <input class="search" id="search-canon" placeholder="Filter by filename..." />
+        <ul id="list-canon"></ul>
+      </div>
+      <div class="main">
+        <div class="controls">
+          <span class="loading" id="status-canon">Loading index...</span>
+          <label class="toggle"><input type="checkbox" id="raw-canon"> Show raw DOT</label>
+          <div class="legend">
+            <span class="chip"><span class="dot" style="background:#000"></span>regulator</span>
+            <span class="chip"><span class="dot" style="background:#2563eb"></span>no output</span>
+            <span class="chip"><span class="line arrow" style="border-color:#22c55e"></span>positive (label=0)</span>
+            <span class="chip"><span class="line tee" style="border-color:#c026d3"></span>negative (label=1)</span>
+          </div>
+        </div>
+        <div id="graph-canon" class="graph"></div>
+      </div>
+    </div>
+  </div>
+  <div class="panel" id="tab-outputs">
+    <div class="container">
+      <div class="sidebar">
+        <input class="search" id="search-out" placeholder="Filter by filename..." />
+        <ul id="list-out"></ul>
+      </div>
+      <div class="main">
+        <div class="controls">
+          <span class="loading" id="status-out">Loading index...</span>
+          <label class="toggle"><input type="checkbox" id="raw-out"> Show raw DOT</label>
+          <div class="legend">
+            <span class="chip"><span class="dot" style="background:#000"></span>regulator</span>
+            <span class="chip"><span class="dot" style="background:#2563eb"></span>no output</span>
+            <span class="chip"><span class="line arrow" style="border-color:#22c55e"></span>positive (label=0)</span>
+            <span class="chip"><span class="line tee" style="border-color:#c026d3"></span>negative (label=1)</span>
+          </div>
+        </div>
+        <div id="graph-out" class="graph"></div>
+      </div>
+    </div>
+  </div>
+  <script>
+    function setupTabs() {
+      document.querySelectorAll('.tab').forEach(tab => {
+        tab.addEventListener('click', () => {
+          document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+          document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+          tab.classList.add('active');
+          const target = document.querySelector(tab.dataset.target);
+          if (target) target.classList.add('active');
+        });
+      });
+    }
+
+    async function loadIndex(path) {
+      try {
+        const res = await fetch(path);
+        if (!res.ok) throw new Error('HTTP ' + res.status);
+        return await res.json();
+      } catch (e) {
+        return { error: e.message };
+      }
+    }
+
+    function renderList(listEl, statusEl, index, onClick) {
+      if (index.error) {
+        statusEl.textContent = 'Failed to load index: ' + index.error;
+        statusEl.className = 'error';
+        return;
+      }
+      statusEl.textContent = 'Loaded ' + index.length + ' files';
+      statusEl.className = 'loading';
+      const frag = document.createDocumentFragment();
+      index.sort();
+      index.forEach(p => {
+        const li = document.createElement('li');
+        li.innerHTML = `<div>${p.split('/').pop()}</div><div class="path">${p}</div>`;
+        li.addEventListener('click', () => onClick(p));
+        frag.appendChild(li);
+      });
+      listEl.innerHTML = '';
+      listEl.appendChild(frag);
+    }
+
+    function preprocessDot(dot) {
+      const header = [
+        '  graph [rankdir=LR, splines=true, overlap=false];',
+        '  node [shape=circle, style=filled, fillcolor="#000000", fontcolor="white", fontsize=12];',
+        '  edge [color="#22c55e", penwidth=2, arrowsize=0.9, arrowhead="normal"];'
+      ].join('\n');
+
+      let out = dot.replace(/(digraph\s+[^\{]+\{)/g, (m) => m + '\n' + header + '\n');
+
+      const edges = [];
+      const edgeRe = /\n\s*(\d+)\s*->\s*(\d+)\s*\[(.*?)\];/g;
+      let match;
+      while ((match = edgeRe.exec(out)) !== null) {
+        const from = parseInt(match[1], 10);
+        const to = parseInt(match[2], 10);
+        const attrs = match[3];
+        const labelMatch = attrs.match(/label\s*=\s*"([01])"/);
+        const label = labelMatch ? labelMatch[1] : null;
+        edges.push({ from, to, label, whole: match[0] });
+      }
+
+      for (const e of edges) {
+        let replacementAttrs;
+        if (e.label === '0') {
+          replacementAttrs = 'color="#22c55e", arrowhead="normal"';
+        } else if (e.label === '1') {
+          replacementAttrs = 'color="#c026d3", arrowhead="tee"';
+        } else {
+          replacementAttrs = 'color="#9ca3af", arrowhead="normal"';
+        }
+        const newLine = `\n  ${e.from} -> ${e.to} [${replacementAttrs}];`;
+        out = out.replace(e.whole, newLine);
+      }
+
+      const outdeg = new Map();
+      for (const e of edges) {
+        outdeg.set(e.from, (outdeg.get(e.from) || 0) + 1);
+        if (!outdeg.has(e.to)) outdeg.set(e.to, outdeg.get(e.to) || 0);
+      }
+      if (edges.length > 0) {
+        const nodes = Array.from(outdeg.keys()).sort((a,b)=>a-b);
+        const nodeLines = nodes.map(n => {
+          const hasOut = (outdeg.get(n) || 0) > 0;
+          const fill = hasOut ? '#000000' : '#2563eb';
+          return `  ${n} [fillcolor="${fill}"];`;
+        }).join('\n');
+        out = out.replace(/(digraph\s+[^\{]+\{[^]*?)(\n\s*\})/g, (m, pre, close) => pre + '\n' + nodeLines + '\n' + close);
+      }
+      return out;
+    }
+
+    async function renderDot(targetEl, statusEl, path, rawCheckbox) {
+      statusEl.textContent = 'Loading ' + path + '...';
+      statusEl.className = 'loading';
+      try {
+        const res = await fetch(path);
+        if (!res.ok) throw new Error('HTTP ' + res.status);
+        const dot = await res.text();
+        const viz = new Viz();
+        const toRender = rawCheckbox && rawCheckbox.checked ? dot : preprocessDot(dot);
+        const svg = await viz.renderSVGElement(toRender);
+        targetEl.innerHTML = '';
+        targetEl.appendChild(svg);
+        statusEl.textContent = 'Rendered ' + path;
+      } catch (e) {
+        targetEl.innerHTML = '';
+        statusEl.textContent = 'Failed to render ' + path + ': ' + e.message + '. Is Graphviz syntax valid?';
+        statusEl.className = 'error';
+      }
+    }
+
+    function hookFilter(inputEl, listEl) {
+      inputEl.addEventListener('input', () => {
+        const q = inputEl.value.toLowerCase();
+        listEl.querySelectorAll('li').forEach(li => {
+          const text = li.textContent.toLowerCase();
+          li.style.display = text.includes(q) ? '' : 'none';
+        });
+      });
+    }
+
+    async function init() {
+      setupTabs();
+      const statusCanon = document.getElementById('status-canon');
+      const statusOut = document.getElementById('status-out');
+      const listCanon = document.getElementById('list-canon');
+      const listOut = document.getElementById('list-out');
+      const graphCanon = document.getElementById('graph-canon');
+      const graphOut = document.getElementById('graph-out');
+  const idxCanon = await loadIndex('graph_parser/hras_dot_files/index.json');
+  const idxOut = await loadIndex('graph_parser/hra_evolution_results/index.json');
+  const rawCanon = document.getElementById('raw-canon');
+  const rawOut = document.getElementById('raw-out');
+  renderList(listCanon, statusCanon, idxCanon, (p) => renderDot(graphCanon, statusCanon, p, rawCanon));
+  renderList(listOut, statusOut, idxOut, (p) => renderDot(graphOut, statusOut, p, rawOut));
+      hookFilter(document.getElementById('search-canon'), listCanon);
+      hookFilter(document.getElementById('search-out'), listOut);
+    }
+    init();
+  </script>
+</body>
+</html>

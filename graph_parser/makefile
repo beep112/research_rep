@@ -31,6 +31,10 @@ clean:
 run: $(SAMPLER_EXEC) $(EXPANDER_EXEC)
 	./$(SAMPLER_EXEC) hras_dot_files/hras_n3.dot 4 0
 
+# Build JSON indexes for GitHub Pages graphs.html viewer
+index:
+	python3 build_graph_index.py
+
 # Debug version
 debug: CFLAGS += -g -DDEBUG
 debug: all
