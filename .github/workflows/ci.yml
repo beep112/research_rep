@@ -1,0 +1,53 @@
+name: CI
+
+on:
+  push:
+    branches: [ main, '**' ]
+  pull_request:
+
+jobs:
+  lint-test-build:
+    name: Lint, optional tests, and build (matrix)
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+
+      - name: Install Python dev tools
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements-dev.txt
+
+      - name: Lint
+        continue-on-error: true
+        run: |
+          make lint
+
+      - name: Optional Tests
+        run: |
+          make test
+
+      - name: Build
+        run: |
+          make build
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: hra-tools-${{ runner.os }}
+          path: |
+            graph_parser/hra_runner*
+            graph_parser/hra_expander*
+            graph_parser/hra_test3*
+            graph_parser/hra_evolution_results/**
+            graph_parser/hras_dot_files/index.json
+          if-no-files-found: warn

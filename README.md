@@ -1,5 +1,7 @@
 # research_rep
 
+[![CI](https://github.com/beep112/research_rep/actions/workflows/ci.yml/badge.svg)](https://github.com/beep112/research_rep/actions/workflows/ci.yml)
+
 ## HRA pipeline overview
 
 This repo contains a small pipeline to expand and analyze heritable regulatory architectures (HRAs):
@@ -16,14 +18,19 @@ Recent behavior updates:
 
 ## Build
 
-From the graph_parser directory:
+Top-level (recommended):
 
 ```bash
-cd graph_parser
-make
+make build
 ```
 
-This produces two executables: `hra_runner` and `hra_expander`.
+This builds the native tools and regenerates JSON indexes. Or from the subdir:
+
+```bash
+cd graph_parser && make
+```
+
+Executables produced: `hra_runner`, `hra_expander`, and `hra_test3`.
 
 ## Run the expansion + analysis
 
@@ -101,7 +108,28 @@ Recommendations:
 - Ensure `make` completed and `hra_runner` and `hra_expander` exist in `graph_parser/`.
 - Long paths are supported via PATH_MAX; if you hit truncation warnings, prefer shorter output directory paths.
 
+### Cleaning without losing results
+
+By default, `make clean` now keeps `graph_parser/hra_evolution_results/` so your website stays populated. Use the following for deeper cleanup:
+
+```bash
+# Remove only results (use with caution)
+make -C graph_parser clean-results
+
+# Deep clean: binaries + results
+make -C graph_parser distclean
+
+# Backup or restore results
+make -C graph_parser backup-results
+make -C graph_parser restore-results
+```
+
 ## Notes
 
 - The expander currently explores a bounded pattern space when adding one node and applies three validity checks: weak connectivity, heritable topology (no node with zero in-degree), and heritable regulatory (each node must have an incoming label 0 edge).
 - Canonicalization enumerates all node relabelings for n ≤ 6 to choose a lexicographically minimal adjacency; for larger n, it falls back to the direct adjacency matrix.
+
+## CI/CD and Releases
+
+- CI runs on Linux/macOS/Windows and performs lint, optional tests, and builds. See the Actions tab.
+- To publish downloadable binaries, push a tag like `v0.1.0` or run the Release workflow manually. See `RELEASE.md`.
