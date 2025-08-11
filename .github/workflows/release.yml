@@ -13,8 +13,8 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-    os: [ubuntu-latest, macos-latest]
-  steps:
+        os: [ubuntu-latest, macos-latest]
+    steps:
       - name: Checkout
         uses: actions/checkout@v4
 
@@ -28,14 +28,14 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements-dev.txt
 
-    - name: Build
+      - name: Build
         run: |
           make build
 
-    - name: Upload build artifacts
+      - name: Upload build artifacts
         uses: actions/upload-artifact@v4
         with:
-      name: built-${{ runner.os }}
+          name: built-${{ runner.os }}
           path: |
             graph_parser/hra_runner*
             graph_parser/hra_expander*
