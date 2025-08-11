@@ -84,6 +84,17 @@ Commit the generated files:
 Open the viewer (once published by GitHub Pages):
 - https://<your-username>.github.io/research_rep/graphs.html
 
+### Viewer layout controls and spacing
+
+The viewer injects layout attributes into each DOT block before rendering. Use the controls in each tab to select a Graphviz engine and adjust spacing:
+
+- Engine: dot, neato, sfdp, twopi, circo. The Outputs tab defaults to sfdp for better spacing on dense graphs.
+- Spacing: nodesep and ranksep are applied in the graph header, along with overlap=false and splines=true.
+
+Recommendations:
+- For small DAG-like graphs, start with dot and nodesep≈0.6, ranksep≈0.9.
+- For larger/denser graphs, switch to sfdp and increase nodesep to ~0.9 and ranksep to ~1.2.
+
 ## Troubleshooting
 
 - If you see “Error: No graphs found …”, run the runner from the `graph_parser/` directory or pass a correct relative/absolute path to the input .dot file.
