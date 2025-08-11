@@ -24,7 +24,15 @@
     .graph { border: 1px solid #e5e7eb; min-height: 480px; background: white; }
     .loading { color: #6b7280; }
     .error { color: #b91c1c; }
-    .controls { margin-bottom: 8px; }
+  .controls { margin-bottom: 8px; display:flex; align-items:center; gap:12px; flex-wrap:wrap; }
+  .legend { display:flex; align-items:center; gap:12px; color:#374151; font-size:13px; }
+  .chip { display:inline-flex; align-items:center; gap:6px; padding:4px 8px; border:1px solid #e5e7eb; border-radius:999px; background:#f9fafb; }
+  .dot { width:12px; height:12px; border-radius:999px; display:inline-block; }
+  .line { width:20px; height:0; border-top:3px solid; display:inline-block; position:relative; }
+  .line.arrow::after { content:'>'; position:absolute; right:-6px; top:-8px; font-weight:bold; }
+  .line.tee::after { content:''; position:absolute; right:-2px; top:-6px; width:0; height:0; border-left:8px solid currentColor; border-top:6px solid transparent; border-bottom:6px solid transparent; transform: rotate(90deg); }
+  .toggle { display:inline-flex; gap:6px; align-items:center; cursor:pointer; user-select:none; }
+  .toggle input { accent-color:#0b3d91; }
   </style>
   <script src="https://cdn.jsdelivr.net/npm/viz.js@2.1.2/viz.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/viz.js@2.1.2/full.render.js"></script>
@@ -44,7 +52,16 @@
         <ul id="list-canon"></ul>
       </div>
       <div class="main">
-        <div class="controls"><span class="loading" id="status-canon">Loading index...</span></div>
+        <div class="controls">
+          <span class="loading" id="status-canon">Loading index...</span>
+          <label class="toggle"><input type="checkbox" id="raw-canon"> Show raw DOT</label>
+          <div class="legend">
+            <span class="chip"><span class="dot" style="background:#000"></span>regulator</span>
+            <span class="chip"><span class="dot" style="background:#2563eb"></span>no output</span>
+            <span class="chip"><span class="line arrow" style="border-color:#22c55e"></span>positive (label=0)</span>
+            <span class="chip"><span class="line tee" style="border-color:#c026d3"></span>negative (label=1)</span>
+          </div>
+        </div>
         <div id="graph-canon" class="graph"></div>
       </div>
     </div>
@@ -56,7 +73,16 @@
         <ul id="list-out"></ul>
       </div>
       <div class="main">
-        <div class="controls"><span class="loading" id="status-out">Loading index...</span></div>
+        <div class="controls">
+          <span class="loading" id="status-out">Loading index...</span>
+          <label class="toggle"><input type="checkbox" id="raw-out"> Show raw DOT</label>
+          <div class="legend">
+            <span class="chip"><span class="dot" style="background:#000"></span>regulator</span>
+            <span class="chip"><span class="dot" style="background:#2563eb"></span>no output</span>
+            <span class="chip"><span class="line arrow" style="border-color:#22c55e"></span>positive (label=0)</span>
+            <span class="chip"><span class="line tee" style="border-color:#c026d3"></span>negative (label=1)</span>
+          </div>
+        </div>
         <div id="graph-out" class="graph"></div>
       </div>
     </div>
@@ -104,7 +130,58 @@
       listEl.appendChild(frag);
     }
 
-    async function renderDot(targetEl, statusEl, path) {
+    function preprocessDot(dot) {
+      const header = [
+        '  graph [rankdir=LR, splines=true, overlap=false];',
+        '  node [shape=circle, style=filled, fillcolor="#000000", fontcolor="white", fontsize=12];',
+        '  edge [color="#22c55e", penwidth=2, arrowsize=0.9, arrowhead="normal"];'
+      ].join('\n');
+
+      let out = dot.replace(/(digraph\s+[^\{]+\{)/g, (m) => m + '\n' + header + '\n');
+
+      const edges = [];
+      const edgeRe = /\n\s*(\d+)\s*->\s*(\d+)\s*\[(.*?)\];/g;
+      let match;
+      while ((match = edgeRe.exec(out)) !== null) {
+        const from = parseInt(match[1], 10);
+        const to = parseInt(match[2], 10);
+        const attrs = match[3];
+        const labelMatch = attrs.match(/label\s*=\s*"([01])"/);
+        const label = labelMatch ? labelMatch[1] : null;
+        edges.push({ from, to, label, whole: match[0] });
+      }
+
+      for (const e of edges) {
+        let replacementAttrs;
+        if (e.label === '0') {
+          replacementAttrs = 'color="#22c55e", arrowhead="normal"';
+        } else if (e.label === '1') {
+          replacementAttrs = 'color="#c026d3", arrowhead="tee"';
+        } else {
+          replacementAttrs = 'color="#9ca3af", arrowhead="normal"';
+        }
+        const newLine = `\n  ${e.from} -> ${e.to} [${replacementAttrs}];`;
+        out = out.replace(e.whole, newLine);
+      }
+
+      const outdeg = new Map();
+      for (const e of edges) {
+        outdeg.set(e.from, (outdeg.get(e.from) || 0) + 1);
+        if (!outdeg.has(e.to)) outdeg.set(e.to, outdeg.get(e.to) || 0);
+      }
+      if (edges.length > 0) {
+        const nodes = Array.from(outdeg.keys()).sort((a,b)=>a-b);
+        const nodeLines = nodes.map(n => {
+          const hasOut = (outdeg.get(n) || 0) > 0;
+          const fill = hasOut ? '#000000' : '#2563eb';
+          return `  ${n} [fillcolor="${fill}"];`;
+        }).join('\n');
+        out = out.replace(/(digraph\s+[^\{]+\{[^]*?)(\n\s*\})/g, (m, pre, close) => pre + '\n' + nodeLines + '\n' + close);
+      }
+      return out;
+    }
+
+    async function renderDot(targetEl, statusEl, path, rawCheckbox) {
       statusEl.textContent = 'Loading ' + path + '...';
       statusEl.className = 'loading';
       try {
@@ -112,7 +189,8 @@
         if (!res.ok) throw new Error('HTTP ' + res.status);
         const dot = await res.text();
         const viz = new Viz();
-        const svg = await viz.renderSVGElement(dot);
+        const toRender = rawCheckbox && rawCheckbox.checked ? dot : preprocessDot(dot);
+        const svg = await viz.renderSVGElement(toRender);
         targetEl.innerHTML = '';
         targetEl.appendChild(svg);
         statusEl.textContent = 'Rendered ' + path;
@@ -141,10 +219,12 @@
       const listOut = document.getElementById('list-out');
       const graphCanon = document.getElementById('graph-canon');
       const graphOut = document.getElementById('graph-out');
-      const idxCanon = await loadIndex('graph_parser/hras_dot_files/index.json');
-      const idxOut = await loadIndex('graph_parser/hra_evolution_results/index.json');
-      renderList(listCanon, statusCanon, idxCanon, (p) => renderDot(graphCanon, statusCanon, p));
-      renderList(listOut, statusOut, idxOut, (p) => renderDot(graphOut, statusOut, p));
+  const idxCanon = await loadIndex('graph_parser/hras_dot_files/index.json');
+  const idxOut = await loadIndex('graph_parser/hra_evolution_results/index.json');
+  const rawCanon = document.getElementById('raw-canon');
+  const rawOut = document.getElementById('raw-out');
+  renderList(listCanon, statusCanon, idxCanon, (p) => renderDot(graphCanon, statusCanon, p, rawCanon));
+  renderList(listOut, statusOut, idxOut, (p) => renderDot(graphOut, statusOut, p, rawOut));
       hookFilter(document.getElementById('search-canon'), listCanon);
       hookFilter(document.getElementById('search-out'), listOut);
     }
