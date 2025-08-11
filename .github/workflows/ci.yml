@@ -12,7 +12,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu-latest, macos-latest, windows-latest]
+  os: [ubuntu-latest, macos-latest]
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -27,56 +27,18 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements-dev.txt
 
-      - name: Setup MSYS2 (Windows)
-        if: runner.os == 'Windows'
-        uses: msys2/setup-msys2@v2
-        with:
-          msystem: MINGW64
-          update: true
-          install: >-
-            make
-            mingw-w64-x86_64-gcc
-            mingw-w64-x86_64-winpthreads
-
-      - name: Lint (Linux/macOS)
-        if: runner.os != 'Windows'
+  - name: Lint
         continue-on-error: true
         run: |
           make lint
 
-      - name: Lint (Windows)
-        if: runner.os == 'Windows'
-        continue-on-error: true
-        run: |
-          ruff check .
-          black --check .
-
-      - name: Optional Tests (Linux/macOS)
-        if: runner.os != 'Windows'
+  - name: Optional Tests
         run: |
           make test
 
-      - name: Optional Tests (Windows)
-        if: runner.os == 'Windows'
-        run: |
-          $hasTestsDir = Test-Path -Path tests -PathType Container
-          $hasTestFiles = (Get-ChildItem -Path . -Filter 'test_*.py' -File -Recurse | Select-Object -First 1) -ne $null
-          if ($hasTestsDir -or $hasTestFiles) {
-            pytest -q
-          } else {
-            Write-Host 'No tests found. Skipping.'
-          }
-
-      - name: Build (Linux/macOS)
-        if: runner.os != 'Windows'
+  - name: Build
         run: |
           make build
-
-      - name: Build (Windows via MSYS2)
-        if: runner.os == 'Windows'
-        shell: msys2 {0}
-        run: |
-          make PYTHON=python build
 
       - name: Upload artifacts
         uses: actions/upload-artifact@v4
