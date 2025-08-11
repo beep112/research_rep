@@ -1,5 +1,11 @@
 
 #include "hra_sampler.h"
+
+static int g_last_source_id = -1;
+
+// Forward decls specific to this file
+static int count_reference_graphs(const char *path);
+
 int analyze_results(const char *results_dir, int original_size, int target_size,
                     const char *source_dot_file, bool verbose) {
   printf("Analyzing results in %s...\n", results_dir);
@@ -7,8 +13,8 @@ int analyze_results(const char *results_dir, int original_size, int target_size,
   if (!dir)
     return -1;
 
-  UniqueGraphSet *all_unique = create_unique_graph_set(1000);
-  UniqueGraphSet *from_n3 = create_unique_graph_set(1000);
+  UniqueGraphSet *all_unique = create_unique_graph_set(1024);
+  UniqueGraphSet *from_sources = create_unique_graph_set(1024);
   struct dirent *entry;
   int files_processed = 0;
 
@@ -25,17 +31,23 @@ int analyze_results(const char *results_dir, int original_size, int target_size,
       continue;
 
     Graph g;
-    int graph_id;
+    int graph_id = -1;
     while (parse_single_dot_graph(fp, &g, &graph_id)) {
       char canonical_rep[MAX_NODES * MAX_NODES * sizeof(int)];
       compute_canonical_representation(&g, canonical_rep);
 
-      char source_tag[32];
-      sscanf(entry->d_name, "%*[^_]_%*[^_]_%d.dot", &graph_id);
-      snprintf(source_tag, sizeof(source_tag), "graph_%03d", graph_id);
+      char source_tag[64];
+      if (g_last_source_id >= 0) {
+        snprintf(source_tag, sizeof(source_tag), "Source:%d", g_last_source_id);
+      } else {
+        // Fallback: take an id from filename
+        int fid = 0;
+        sscanf(entry->d_name, "%*[^_]_%*[^_]_%d.dot", &fid);
+        snprintf(source_tag, sizeof(source_tag), "File:%03d", fid);
+      }
 
       add_unique_graph(all_unique, canonical_rep, source_tag);
-      add_unique_graph(from_n3, canonical_rep, source_tag);
+      add_unique_graph(from_sources, canonical_rep, source_tag);
     }
     fclose(fp);
     files_processed++;
@@ -43,7 +55,13 @@ int analyze_results(const char *results_dir, int original_size, int target_size,
   closedir(dir);
 
   printf("Processed %d result files\n", files_processed);
-  print_analysis_summary(all_unique, from_n3, 5604, original_size, target_size);
+
+  // Determine denominator by parsing reference canonical set if present
+  char ref_path[MAX_FILENAME];
+  snprintf(ref_path, sizeof(ref_path), "hras_dot_files/hras_n%d.dot", target_size);
+  int total_target = count_reference_graphs(ref_path);
+  print_analysis_summary(all_unique, from_sources, total_target, original_size,
+                         target_size);
 
   // Dump frequency CSV
   FILE *csv = fopen("hra_stats.csv", "w");
@@ -56,7 +74,7 @@ int analyze_results(const char *results_dir, int original_size, int target_size,
   }
 
   free_unique_graph_set(all_unique);
-  free_unique_graph_set(from_n3);
+  free_unique_graph_set(from_sources);
   return 0;
 }
 
@@ -129,6 +147,12 @@ bool add_unique_graph(UniqueGraphSet *ugs, const char *canonical_rep,
     if (memcmp(ugs->unique_graphs[i].canonical_rep, canonical_rep,
                MAX_NODES * MAX_NODES * sizeof(int)) == 0) {
       UniqueGraph *ug = &ugs->unique_graphs[i];
+      // Check for duplicate source tag
+      for (int s = 0; s < ug->source_count; s++) {
+        if (strcmp(ug->source_graphs[s], source_graph) == 0) {
+          return true; // already recorded
+        }
+      }
       if (ug->source_count >= ug->source_capacity) {
         int nc = ug->source_capacity * 2;
         char **tmp = realloc(ug->source_graphs, nc * sizeof(char *));
@@ -181,6 +205,14 @@ bool parse_single_dot_graph(FILE *fp, Graph *g, int *graph_id) {
   init_graph(g, 0);
 
   while (fgets(line, sizeof(line), fp)) {
+    // Track provenance comments preceding a graph block
+    if (!in_graph && strncmp(line, "// Source:", 10) == 0) {
+      int sid = -1;
+      if (sscanf(line, "// Source:%d", &sid) == 1) {
+        g_last_source_id = sid;
+      }
+      continue;
+    }
     if (!in_graph && strstr(line, "digraph")) {
       in_graph = true;
       char *p = strchr(line, '_');
@@ -279,33 +311,90 @@ bool is_heritable_regulatory(const Graph *g) {
   return true;
 }
 
+// Standard next_permutation for small arrays
+bool next_permutation(int *arr, int n) {
+  int i = n - 2;
+  while (i >= 0 && arr[i] > arr[i + 1])
+    i--;
+  if (i < 0)
+    return false;
+  int j = n - 1;
+  while (arr[j] < arr[i])
+    j--;
+  int tmp = arr[i];
+  arr[i] = arr[j];
+  arr[j] = tmp;
+  // reverse suffix
+  for (int l = i + 1, r = n - 1; l < r; l++, r--) {
+    int t = arr[l];
+    arr[l] = arr[r];
+    arr[r] = t;
+  }
+  return true;
+}
+
+// Lexicographically minimal adjacency under all node label permutations (n<=6)
 void compute_canonical_representation(const Graph *g, char *canonical_rep) {
+  int n = g->n_nodes;
   memset(canonical_rep, 0, MAX_NODES * MAX_NODES * sizeof(int));
-  for (int i = 0; i < g->n_nodes; i++)
-    for (int j = 0; j < g->n_nodes; j++)
-      ((int *)canonical_rep)[i * g->n_nodes + j] = g->adj_matrix[i][j];
+  int best[MAX_NODES * MAX_NODES];
+  bool has_best = false;
+  int perm[MAX_NODES];
+  for (int i = 0; i < n; i++)
+    perm[i] = i;
+  if (n <= 6) {
+    do {
+      int cur[MAX_NODES * MAX_NODES];
+      for (int i = 0; i < n; i++)
+        for (int j = 0; j < n; j++)
+          cur[i * n + j] = g->adj_matrix[perm[i]][perm[j]];
+      if (!has_best || memcmp(cur, best, n * n * sizeof(int)) < 0) {
+        memcpy(best, cur, n * n * sizeof(int));
+        has_best = true;
+      }
+    } while (next_permutation(perm, n));
+    memcpy(canonical_rep, best, n * n * sizeof(int));
+  } else {
+    // Fallback: direct adjacency
+    for (int i = 0; i < n; i++)
+      for (int j = 0; j < n; j++)
+        ((int *)canonical_rep)[i * n + j] = g->adj_matrix[i][j];
+  }
 }
 
 void print_analysis_summary(const UniqueGraphSet *all_unique,
-                            const UniqueGraphSet *from_n3, int total_n4_hra,
+                            const UniqueGraphSet *from_src, int total_target,
                             int n, int target_n) {
-  printf("=== Analysis Summary ===");
-  printf("Original: n=%d, Target: n=%d", n, target_n);
-  printf("Unique graphs total: %d", all_unique->count);
-  printf("From n=%d sources: %d", n, from_n3->count);
-  if (total_n4_hra > 0) {
-    double r = (double)from_n3->count / total_n4_hra;
-    printf("Ratio: %.4f (from/total)", r);
+  printf("=== Analysis Summary ===\n");
+  printf("Original: n=%d, Target: n=%d\n", n, target_n);
+  printf("Unique graphs total: %d\n", all_unique->count);
+  printf("Unique graphs from sources: %d\n", from_src->count);
+  if (total_target > 0) {
+    double r = (double)from_src->count / total_target;
+    printf("Ratio (from/total reference hras_n%d): %.4f (%d/%d)\n", target_n, r,
+           from_src->count, total_target);
   }
-  printf("Graphs appearing >1 sources:");
-  int multi = 0;
+  int multi = 0, singles = 0;
   for (int i = 0; i < all_unique->count; i++) {
-    if (all_unique->unique_graphs[i].source_count > 1) {
-      printf("  Graph %d: %d sources", i,
-             all_unique->unique_graphs[i].source_count);
+    if (all_unique->unique_graphs[i].source_count > 1)
       multi++;
-    }
+    if (all_unique->unique_graphs[i].source_count == 1)
+      singles++;
   }
-  if (!multi)
-    printf("  (none)");
+  printf("Graphs appearing from >1 sources: %d\n", multi);
+  printf("Singleton graphs (exactly 1 source): %d\n", singles);
+}
+
+// Count digraphs in a reference file for ratio denominator
+static int count_reference_graphs(const char *path) {
+  FILE *fp = fopen(path, "r");
+  if (!fp)
+    return -1;
+  char line[MAX_LINE];
+  int c = 0;
+  while (fgets(line, sizeof(line), fp))
+    if (strstr(line, "digraph"))
+      c++;
+  fclose(fp);
+  return c;
 }

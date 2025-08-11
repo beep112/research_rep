@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>HRA Graph Viewer</title>
+  <style>
+    body { font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif; margin: 0; }
+    header { background: #0b3d91; color: white; padding: 12px 16px; }
+    h1 { font-size: 18px; margin: 0; }
+    .tabs { display: flex; gap: 8px; background: #f3f4f6; padding: 8px 8px 0; }
+    .tab { padding: 8px 12px; cursor: pointer; border: 1px solid #e5e7eb; border-bottom: none; border-radius: 8px 8px 0 0; background: #e5e7eb; }
+    .tab.active { background: white; font-weight: 600; }
+    .panel { border-top: 1px solid #e5e7eb; display: none; }
+    .panel.active { display: block; }
+    .container { display: grid; grid-template-columns: 360px 1fr; height: calc(100vh - 96px); }
+    .sidebar { border-right: 1px solid #e5e7eb; overflow: auto; padding: 8px; }
+    .main { overflow: auto; padding: 8px; }
+    .search { width: 100%; padding: 8px; margin-bottom: 8px; }
+    ul { list-style: none; padding: 0; margin: 0; }
+    li { padding: 4px 6px; cursor: pointer; border-radius: 4px; }
+    li:hover { background: #f3f4f6; }
+    .path { color: #6b7280; font-size: 12px; }
+    .graph { border: 1px solid #e5e7eb; min-height: 480px; background: white; }
+    .loading { color: #6b7280; }
+    .error { color: #b91c1c; }
+    .controls { margin-bottom: 8px; }
+  </style>
+  <script src="https://cdn.jsdelivr.net/npm/viz.js@2.1.2/viz.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/viz.js@2.1.2/full.render.js"></script>
+</head>
+<body>
+  <header>
+    <h1>HRA Graph Viewer</h1>
+  </header>
+  <div class="tabs">
+    <div class="tab active" data-target="#tab-canonical">Canonical (hras_dot_files)</div>
+    <div class="tab" data-target="#tab-outputs">Outputs (hra_evolution_results)</div>
+  </div>
+  <div class="panel active" id="tab-canonical">
+    <div class="container">
+      <div class="sidebar">
+        <input class="search" id="search-canon" placeholder="Filter by filename..." />
+        <ul id="list-canon"></ul>
+      </div>
+      <div class="main">
+        <div class="controls"><span class="loading" id="status-canon">Loading index...</span></div>
+        <div id="graph-canon" class="graph"></div>
+      </div>
+    </div>
+  </div>
+  <div class="panel" id="tab-outputs">
+    <div class="container">
+      <div class="sidebar">
+        <input class="search" id="search-out" placeholder="Filter by filename..." />
+        <ul id="list-out"></ul>
+      </div>
+      <div class="main">
+        <div class="controls"><span class="loading" id="status-out">Loading index...</span></div>
+        <div id="graph-out" class="graph"></div>
+      </div>
+    </div>
+  </div>
+  <script>
+    function setupTabs() {
+      document.querySelectorAll('.tab').forEach(tab => {
+        tab.addEventListener('click', () => {
+          document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+          document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+          tab.classList.add('active');
+          const target = document.querySelector(tab.dataset.target);
+          if (target) target.classList.add('active');
+        });
+      });
+    }
+
+    async function loadIndex(path) {
+      try {
+        const res = await fetch(path);
+        if (!res.ok) throw new Error('HTTP ' + res.status);
+        return await res.json();
+      } catch (e) {
+        return { error: e.message };
+      }
+    }
+
+    function renderList(listEl, statusEl, index, onClick) {
+      if (index.error) {
+        statusEl.textContent = 'Failed to load index: ' + index.error;
+        statusEl.className = 'error';
+        return;
+      }
+      statusEl.textContent = 'Loaded ' + index.length + ' files';
+      statusEl.className = 'loading';
+      const frag = document.createDocumentFragment();
+      index.sort();
+      index.forEach(p => {
+        const li = document.createElement('li');
+        li.innerHTML = `<div>${p.split('/').pop()}</div><div class="path">${p}</div>`;
+        li.addEventListener('click', () => onClick(p));
+        frag.appendChild(li);
+      });
+      listEl.innerHTML = '';
+      listEl.appendChild(frag);
+    }
+
+    async function renderDot(targetEl, statusEl, path) {
+      statusEl.textContent = 'Loading ' + path + '...';
+      statusEl.className = 'loading';
+      try {
+        const res = await fetch(path);
+        if (!res.ok) throw new Error('HTTP ' + res.status);
+        const dot = await res.text();
+        const viz = new Viz();
+        const svg = await viz.renderSVGElement(dot);
+        targetEl.innerHTML = '';
+        targetEl.appendChild(svg);
+        statusEl.textContent = 'Rendered ' + path;
+      } catch (e) {
+        targetEl.innerHTML = '';
+        statusEl.textContent = 'Failed to render ' + path + ': ' + e.message + '. Is Graphviz syntax valid?';
+        statusEl.className = 'error';
+      }
+    }
+
+    function hookFilter(inputEl, listEl) {
+      inputEl.addEventListener('input', () => {
+        const q = inputEl.value.toLowerCase();
+        listEl.querySelectorAll('li').forEach(li => {
+          const text = li.textContent.toLowerCase();
+          li.style.display = text.includes(q) ? '' : 'none';
+        });
+      });
+    }
+
+    async function init() {
+      setupTabs();
+      const statusCanon = document.getElementById('status-canon');
+      const statusOut = document.getElementById('status-out');
+      const listCanon = document.getElementById('list-canon');
+      const listOut = document.getElementById('list-out');
+      const graphCanon = document.getElementById('graph-canon');
+      const graphOut = document.getElementById('graph-out');
+      const idxCanon = await loadIndex('graph_parser/hras_dot_files/index.json');
+      const idxOut = await loadIndex('graph_parser/hra_evolution_results/index.json');
+      renderList(listCanon, statusCanon, idxCanon, (p) => renderDot(graphCanon, statusCanon, p));
+      renderList(listOut, statusOut, idxOut, (p) => renderDot(graphOut, statusOut, p));
+      hookFilter(document.getElementById('search-canon'), listCanon);
+      hookFilter(document.getElementById('search-out'), listOut);
+    }
+    init();
+  </script>
+</body>
+</html>

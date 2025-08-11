@@ -12,12 +12,17 @@
 #include <sys/wait.h>
 #include <time.h>
 #include <unistd.h>
+#include <limits.h>
+
+#ifndef PATH_MAX
+#define PATH_MAX 4096
+#endif
 
 #define MAX_NODES 10
 #define MAX_EDGES 90
 #define MAX_GRAPHS 1000000
-#define MAX_FILENAME 256
-#define MAX_LINE 1024
+#define MAX_FILENAME PATH_MAX
+#define MAX_LINE 2048
 #define MAX_THREADS 16
 
 // Graph structures (reusing from your original code)
