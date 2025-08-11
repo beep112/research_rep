@@ -27,16 +27,16 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements-dev.txt
 
-  - name: Lint
+      - name: Lint
         continue-on-error: true
         run: |
           make lint
 
-  - name: Optional Tests
+      - name: Optional Tests
         run: |
           make test
 
-  - name: Build
+      - name: Build
         run: |
           make build
 
