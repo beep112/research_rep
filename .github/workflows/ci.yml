@@ -36,7 +36,7 @@ jobs:
           install: >-
             make
             mingw-w64-x86_64-gcc
-            mingw-w64-x86_64-pthreads
+            mingw-w64-x86_64-winpthreads
 
       - name: Lint (Linux/macOS)
         if: runner.os != 'Windows'
